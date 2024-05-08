@@ -25,9 +25,14 @@ window.addEventListener("load", () => {
             oGlobalObject.min = 0;
         }
 
-        let textNodeRef = document.createTextNode(oGlobalObject.hours + " : " + oGlobalObject.min);
-
-        info_timerRef.textContent = oGlobalObject.hours + " : " + oGlobalObject.min;
+        
+        if(oGlobalObject.min > 9){
+            info_timerRef.textContent = oGlobalObject.hours + " : " + oGlobalObject.min;
+        }
+        else{
+            info_timerRef.textContent = oGlobalObject.hours + " : 0" + oGlobalObject.min;
+        }
+        
 
     },1000)
 })

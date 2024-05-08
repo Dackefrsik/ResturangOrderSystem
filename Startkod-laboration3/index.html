@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <header>
+    <header class="mb-3">
         <div class="bg-dark d-flex justify-content-center p-3 gap-3">
             <button class="btn btn-secondary">Bställningar</button>
             <button class="btn btn-primary">Nuvarande beställning</button>
@@ -15,11 +16,39 @@
         </div>
     </header>
     <main>
-        <div class="d-flex justify-content-center gap-3 mt-3">
-            <table id="class_1">
+        <div class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+            <table id="class_1" class="w-75 mt-5">
                 <tr>
                     <th>
                         <p><strong>Pizzor class 1</strong></p>
+                    </th>
+                </tr>
+            </table>
+            <table id="class_2" class="w-75 mt-1">
+                <tr>
+                    <th>
+                        <p><strong>Pizzor class 2</strong></p>
+                    </th>
+                </tr>
+            </table>
+            <table id="class_3" class="w-75 mt-1">
+                <tr>
+                    <th>
+                        <p><strong>Pizzor class 3</strong></p>
+                    </th>
+                </tr>
+            </table>
+            <table id="soser" class="w-75 mt-1">
+                <tr>
+                    <th>
+                        <p><strong>Såser</strong></p>
+                    </th>
+                </tr>
+            </table>
+            <table id="drycker" class="w-75 mt-1">
+                <tr>
+                    <th>
+                        <p><strong>Drycker</strong></p>
                     </th>
                 </tr>
             </table>
@@ -81,7 +110,6 @@
         }
 
         let tableClass_1Ref = document.querySelector("#class_1");
-        
         let pizza_class_1Ref = menu["pizza_class_1"];
 
         pizza_class_1Ref.forEach(pizza => {
@@ -90,24 +118,111 @@
             let tdRef2 = document.createElement("td");
             let tdRef3 = document.createElement("td");
             tdRef1.textContent = pizza.name;
-            tdRef1.style.paddingRight = "1rem";
-            tdRef1.style.paddingLeft = "1rem";
-            tdRef1.style.border = "1px solid black";
+            tdRef1.classList.add("td-style");
             tdRef2.textContent = pizza.contents;
-            tdRef2.style.paddingRight = "1rem";
-            tdRef2.style.paddingLeft = "1rem";
-            tdRef2.style.border = "1px solid black";
+            tdRef2.classList.add("td-style");
             tdRef3.textContent = pizza.price + " kr";
-            tdRef3.style.paddingRight = "1rem";
-            tdRef3.style.paddingLeft = "1rem";
-            tdRef3.style.border = "1px solid black";
+            tdRef3.classList.add("td-style");
             trRef.appendChild(tdRef1);
             trRef.appendChild(tdRef2);
             trRef.appendChild(tdRef3);
-            trRef.style.border = "1px solid black";
+            trRef.classList.add("tr-style");
             tableClass_1Ref.appendChild(trRef);
+        });
+
+        let tableClass_2Ref = document.querySelector("#class_2");
+        let pizza_class_2Ref = menu["pizza_class_2"];
+
+        pizza_class_2Ref.forEach(pizza => {
+            let trRef = document.createElement("tr");
+            let tdRef1 = document.createElement("td");
+            let tdRef2 = document.createElement("td");
+            let tdRef3 = document.createElement("td");
+            tdRef1.textContent = pizza.name;
+            tdRef1.classList.add("td-style");
+            tdRef2.textContent = pizza.contents;
+            tdRef2.classList.add("td-style");
+            tdRef3.textContent = pizza.price + " kr";
+            tdRef3.classList.add("td-style");
+            trRef.appendChild(tdRef1);
+            trRef.appendChild(tdRef2);
+            trRef.appendChild(tdRef3);
+            trRef.classList.add("tr-style");
+            tableClass_2Ref.appendChild(trRef);
+        });
+
+        let tableClass_3Ref = document.querySelector("#class_3");
+        let pizza_class_3Ref = menu["pizza_class_3"];
+
+        pizza_class_3Ref.forEach(pizza => {
+            let trRef = document.createElement("tr");
+            let tdRef1 = document.createElement("td");
+            let tdRef2 = document.createElement("td");
+            let tdRef3 = document.createElement("td");
+            tdRef1.textContent = pizza.name;
+            tdRef1.classList.add("td-style");
+            tdRef2.textContent = pizza.contents;
+            tdRef2.classList.add("td-style");
+            tdRef3.textContent = pizza.price + " kr";
+            tdRef3.classList.add("td-style");
+            trRef.appendChild(tdRef1);
+            trRef.appendChild(tdRef2);
+            trRef.appendChild(tdRef3);
+            trRef.classList.add("tr-style");
+            tableClass_3Ref.appendChild(trRef);
+        })
+
+        let tableSoserRef = document.querySelector("#soser");
+        let soserRef = menu["sauces"];
+
+        soserRef.forEach(sauce => {
+            let trRef = document.createElement("tr");
+            let tdRef1 = document.createElement("td");
+            let tdRef2 = document.createElement("td");
+            let tdRef3 = document.createElement("td");
+
+            let sauceAmount = sauce.name.split(" ");        
+
+            if (sauceAmount.length == 4) {
+                tdRef1.textContent = sauceAmount[0];
+                tdRef1.classList.add("td-style");
+                tdRef2.textContent = sauceAmount[1] + " " + sauceAmount[2];
+                tdRef2.classList.add("td-style");
+            }
+            else if(sauceAmount.length == 5){
+                tdRef1.textContent = sauceAmount[0] + " " + sauceAmount[1];
+                tdRef1.classList.add("td-style");
+                tdRef2.textContent = sauceAmount[2] + " " + sauceAmount[3];
+                tdRef2.classList.add("td-style");
+            }
+            
+            tdRef3.textContent = sauce.price + " kr";
+            tdRef3.classList.add("td-style");
+            trRef.appendChild(tdRef1);
+            trRef.appendChild(tdRef2);
+            trRef.appendChild(tdRef3);
+            trRef.classList.add("tr-style");
+            tableSoserRef.appendChild(trRef);
         })
         
+        let tableDyckRef = document.querySelector("#drycker");
+        let dryckRef = menu["drinks"];
+
+        dryckRef.forEach(dryck => {
+            let trRef = document.createElement("tr");
+            let tdRef1 = document.createElement("td");
+            let tdRef2 = document.createElement("td");
+            
+            tdRef1.textContent = dryck.name;
+            tdRef2.textContent = dryck.price;
+
+            tdRef1.classList.add("td-style");
+            tdRef2.classList.add("td-style");
+            trRef.appendChild(tdRef1);
+            trRef.appendChild(tdRef2);
+            trRef.classList.add("tr-style");
+            tableDyckRef.appendChild(trRef);
+        })
 
     </script>
 

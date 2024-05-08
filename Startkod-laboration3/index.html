@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="bg-dark d-flex justify-content-center p-3 gap-3">
+            <button class="btn btn-secondary">Bställningar</button>
+            <button class="btn btn-primary">Nuvarande beställning</button>
+            <h3 class="text-white pt-2" id="info_timer">00:00</h3>
+        </div>
+    </header>
+    <main>
+        <div class="d-flex justify-content-center gap-3 mt-3">
+            <table id="class_1">
+                <tr>
+                    <th>
+                        <p><strong>Pizzor class 1</strong></p>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+
+    <!-- #region Menyn js-->
+    <script>
+        var menu = {
+            "pizza_class_1": [
+                {"name": "Margherita", "contents": ["Tomatsås", "Ost"], "price": 65 },
+                {"name": "Vesuvio", "contents": ["Tomatsås", "Ost", "Skinka"], "price": 65 },
+                {"name": "Altono", "contents": ["Tomatsås", "Ost", "Tonfisk"], "price": 65 }
+            ],
+            "pizza_class_2": [
+                {"name": "Calzone", "contents": ["Tomatsås", "Ost", "Skinka"], "price": 80 },
+                {"name": "Capricciosa", "contents": ["Tomatsås", "Ost", "Skinka", "Champinjoner" ], "price": 70 },
+                {"name": "Tomaso", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor" ], "price": 70 },
+                {"name": "Hawaii", "contents": ["Tomatsås", "Ost", "Skinka", "Ananas" ], "price": 70 },
+                {"name": "Oriental", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs" ], "price": 70 },
+                {"name": "Venezia", "contents": ["Tomatsås", "Ost", "Skinka", "Tonfisk" ], "price": 70 },
+                {"name": "Bolognese", "contents": ["Tomatsås", "Ost", "Köttfärs", "Lök" ], "price": 70 },
+                {"name": "Napoli", "contents": ["Tomatsås", "Ost", "Räkor", "Champinjoner" ], "price": 70 }
+            ],
+            "pizza_class_3": [
+                {"name": "Bravo", "contents": ["Tomatsås", "Ost", "Skinka", "Bacon", "Lök", "a:Ägg" ], "price": 75 },
+                {"name": "Princessa", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Champinjoner" ], "price": 75 },
+                {"name": "Kroppkärr", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs", "Champinjoner" ], "price": 75 },
+                {"name": "Afrikano", "contents": ["Tomatsås", "Ost", "Skinka", "Ananas", "Curry", "Banan" ], "price": 75 },
+                {"name": "Önska", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Champinjoner" ], "price": 85 },
+                {"name": "Lambada", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs", "a:Räkor" ], "price": 75 },
+                {"name": "Alsterdalen", "contents": ["Tomatsås", "Ost", "Skinka", "a:Crabfish", "a:Räkor" ], "price": 75 },
+                {"name": "Paradis", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Ananas" ], "price": 75 },
+                {"name": "Roma", "contents": ["Tomatsås", "Ost", "Skinka", "Kantareller", "Tomater (färska)" ], "price": 75 },
+                {"name": "Banjogatan", "contents": ["Tomatsås", "Ost", "Skinka", "Salami", "Paprika" ], "price": 75 },
+                {"name": "Rimini", "contents": ["Tomatsås", "Ost", "Köttfärs", "Gorgonzolaost", "Lök" ], "price": 75 },
+                {"name": "Opera", "contents": ["Tomatsås", "Ost", "Köttfärs", "Ananas", "Curry", "Banan" ], "price": 75 },
+                {"name": "Mesopotamia", "contents": ["Tomatsås", "Ost", "Salami", "Köttfärs", "a:Nötter"], "price": 75 }
+            ],
+            "sauces": [
+                {"name": "Bearnaisesås 10 cl ", "price":  10 },
+                {"name": "Kebabsås mild 10 cl ", "price":  10 },
+                {"name": "Kebabsås stark 10 cl ", "price":  10 },
+                {"name": "Kebabsås blandad 10 cl ", "price":  10 },
+                {"name": "Tzatzikisås 10 cl ", "price":  10 },
+                {"name": "Vitlökssås 10 cl ", "price": 10}
+            ],
+            "drinks": [
+                {"name": "Coca-Cola 33 cl ", "price":  15 },
+                {"name": "Coca-Cola light 33 cl ", "price":  15 },
+                {"name": "Fanta 33 cl ", "price":  15  },
+                {"name": "Sprite 33 cl ", "price":  15 },
+                {"name": "Mineralvatten 33 cl ", "price":  15 },
+                {"name": "Lättöl 33 cl ", "price":  15 },
+                {"name": "Coca-Cola 50 cl ", "price":  20 },
+                {"name": "Fanta 50 cl ", "price":  20 }
+            ]
+        }
+
+        let tableClass_1Ref = document.querySelector("#class_1");
+        
+        let pizza_class_1Ref = menu["pizza_class_1"];
+
+        pizza_class_1Ref.forEach(pizza => {
+            let trRef = document.createElement("tr");
+            let tdRef1 = document.createElement("td");
+            let tdRef2 = document.createElement("td");
+            let tdRef3 = document.createElement("td");
+            tdRef1.textContent = pizza.name;
+            tdRef1.style.paddingRight = "1rem";
+            tdRef1.style.paddingLeft = "1rem";
+            tdRef1.style.border = "1px solid black";
+            tdRef2.textContent = pizza.contents;
+            tdRef2.style.paddingRight = "1rem";
+            tdRef2.style.paddingLeft = "1rem";
+            tdRef2.style.border = "1px solid black";
+            tdRef3.textContent = pizza.price + " kr";
+            tdRef3.style.paddingRight = "1rem";
+            tdRef3.style.paddingLeft = "1rem";
+            tdRef3.style.border = "1px solid black";
+            trRef.appendChild(tdRef1);
+            trRef.appendChild(tdRef2);
+            trRef.appendChild(tdRef3);
+            trRef.style.border = "1px solid black";
+            tableClass_1Ref.appendChild(trRef);
+        })
+        
+
+    </script>
+
+    <!-- #endregion -->
+    <script>
+        //Exmpel: Hur man loopar igenom en del av menyn
+        let pizza1 = menu["pizza_class_1"];
+        console.log(pizza1);
+        pizza1.forEach(function(pizza){
+            console.log(pizza);
+        });
+
+        let drinks = menu.drinks;
+        console.log(drinks);
+        for(let i = 0; i < drinks.length; i++){
+            console.log(drinks[i]);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

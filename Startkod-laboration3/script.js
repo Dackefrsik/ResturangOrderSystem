@@ -39,8 +39,23 @@ window.addEventListener("load", () => {
 
 // #endregion
 
-// #region
+// #region Modal för pågående beställning
 
-    
+    let nuvarandeBeställning = [];
 
+    if(nuvarandeBeställning.length == 0){
+        let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
+        modalBodyRef.innerHTML = "";
+        let h3Ref = document.createElement("h3");
+        h3Ref.innerHTML = "Tom beställning";
+        h3Ref.classList.add("text-danger");
+        modalBodyRef.appendChild(h3Ref);
+    }
+    else if(nuvarandeBeställning.length > 0){
+        let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
+        modalBodyRef.innerHTML = "";
+        let h3Ref = document.createElement("h3");
+        h3Ref.innerHTML = "Pågående beställning";
+        modalBodyRef.appendChild(h3Ref);
+    }
 // #endregion

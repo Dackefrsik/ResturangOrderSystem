@@ -8,58 +8,94 @@
     <title>Document</title>
 </head>
 <body>
-    <header class="mb-3">
-        <div class="bg-dark d-flex justify-content-center p-3 gap-3">
+    <header class="mb-3 bg-primary">
+        <nav class="bg-dark d-flex justify-content-center p-3 gap-3">
             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#LaggdaModal">Bställningar</button>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#NuvarandeModal">Nuvarande beställning</button>
-            <h3 class="text-white pt-2" id="info_timer">00:00</h3>
-        </div>
+            <h6 class="text-white pt-2" id="info_timer">00:00</h6>
+        </nav>
     </header>
     <main>
-        <div class="d-flex justify-content-center flex-wrap gap-3 mt-3 mb-5">
-            <table id="class_1" class="w-75 mt-5">
-                <tr>
-                    <th>
-                        <h2><strong>Pizzor class 1</strong></h2>
-                    </th>
-                </tr>
-            </table>
-            <table id="class_2" class="w-75 mt-1">
-                <tr>
-                    <th>
-                        <h2><strong>Pizzor class 2</strong></h2>
-                    </th>
-                </tr>
-            </table>
-            <table id="class_3" class="w-75 mt-1">
-                <tr>
-                    <th>
-                        <h2><strong>Pizzor class 3</strong></h2>
-                    </th>
-                </tr>
-            </table>
-            <table id="soser" class="w-75 mt-1">
-                <tr>
-                    <th>
-                        <h2><strong>Såser</strong></h2>
-                    </th>
-                </tr>
-            </table>
-            <table id="drycker" class="w-75 mt-1 mb-5">
-                <tr>
-                    <th>
-                        <h2><strong>Drycker</strong></h2>
-                    </th>
-                </tr>
-            </table>
+    <div class="container-fluid d-flex justify-content-center">
+        <div>
+            <div class="row bg-primary">
+                <div class="col-12 bg-danger">
+                    <div class="d-flex justify-content-center mt-3 mb-5 m-1">
+                        <table id="class_1" class="w-50 mt-5 m-1">
+                            <tr>
+                                <th>
+                                    Pizzor class 1
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-3 mb-5 m-1">
+                        <table id="class_2" class="w-50 mt-1 m-1">
+                            <tr>
+                                <th>
+                                    Pizzor class 2
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-3 mb-5 p-5">
+                        <table id="class_3" class="w-50 mt-1 m-5">
+                            <tr>
+                                <th>
+                                    Pizzor class 3
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-3 mb-5 m-1">
+                        <table id="soser" class="w-50 mt-1 m-5">
+                            <tr>
+                                <th>
+                                    Såser
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center mt-3 mb-5 m-1">
+                        <table id="drycker" class="w-50 mt-1 mb-5 ">
+                            <tr>
+                                <th>
+                                    Drycker
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 
         <!-- #region Modal -->
-        <div class="modal fade" id="NuvarandeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="NuvarandeModal" tabindex="-1" aria-labelledby="NuvarandeModal" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
-                    <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Pågående beställning</h1>
+                    <h1 class="modal-title fs-5 text-white">Pågående beställning</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body-nuvarandeBeställning m-3">
@@ -75,19 +111,18 @@
         <!-- #endregion -->
 
         <!-- #region Modal -->
-        <div class="modal fade" id="LaggdaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="LaggdaModal" tabindex="-1" aria-labelledby="LaggdaModal" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-secondary">
-                    <h1 class="modal-title fs-5 text-white" id="exampleModalLabel">Laggda beställning</h1>
+                    <h1 class="modal-title fs-5 text-white">Laggda beställning</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body-laggdaBeställning m-3">
                     
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Avbryt</button>
-                    <button type="button" class="btn btn-primary" id="placeOrder">Lägg beställning</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

@@ -105,7 +105,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
+        //trRef.appendChild(btnRef);
         tableClass_1Ref.appendChild(trRef);
     });
 
@@ -133,7 +133,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
+        //trRef.appendChild(btnRef);
         tableClass_2Ref.appendChild(trRef);
     });
 
@@ -161,7 +161,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
+        //trRef.appendChild(btnRef);
         tableClass_3Ref.appendChild(trRef);
     })
 
@@ -198,7 +198,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
+        //trRef.appendChild(btnRef);
         tableSoserRef.appendChild(trRef);
     })
 
@@ -224,7 +224,7 @@ window.addEventListener("load", () => {
 
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
-        trRef.appendChild(btnRef);
+        //trRef.appendChild(btnRef);
         tableDyckRef.appendChild(trRef);
     })
 
@@ -284,26 +284,9 @@ function addEventListenerTobutton(btnRef){
             
             modalBodyRef.appendChild(inputRef);
             showOrder(modalBodyRef);
-            /* productsCurrentOrder.forEach(products => {
-                let pRef = document.createElement("p");
-                pRef.textContent = products;
-
-                let buttonRef = document.createElement("button");
-                buttonRef.setAttribute("data-name", products);
-                buttonRef.addEventListener("click", () => {
-                    productsCurrentOrder.remove(products);
-                    buttonRef.remove();
-                })
-                modalBodyRef.appendChild(pRef);
-                modalBodyRef.appendChild(buttonRef);
-
-
-            }) */
             
         }
         else if(productsCurrentOrder.length == 0){
-            /*let placeOrderRef = document.querySelector("#placeOrder");
-            placeOrderRef.classList.add("d-none");*/
             let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
             modalBodyRef.innerHTML = "";
             let h3Ref = document.createElement("h3");
@@ -313,8 +296,6 @@ function addEventListenerTobutton(btnRef){
         }  
         
     }) 
-    
-    
 }
 
 // #endregion
@@ -339,21 +320,42 @@ placeOrderRef.addEventListener("click", () => {
     if(orders.length > 0){
         orders.forEach(order => {
             let divRef = document.createElement("div");
+            divRef.classList.add("d-flex");
+            divRef.classList.add("justify-content-between");
+            let innerDivRef = document.createElement("div");
             let h3Ref = document.createElement("h3");
             let tableRef = document.createElement("h6");
-            
+        
             h3Ref.innerHTML = order.orderNumber;
             tableRef.innerHTML = "table" + order.table;
 
-            divRef.appendChild(h3Ref);
-            divRef.appendChild(tableRef);
+            innerDivRef.appendChild(h3Ref);
+            innerDivRef.appendChild(tableRef);
 
             order.products.forEach(product => {
+                
                 let pRef = document.createElement("p");
                 pRef.innerHTML = product;
-                divRef.appendChild(pRef);
+                innerDivRef.appendChild(pRef);
+            })
+            
+            let btnRef = document.createElement("button");
+            btnRef.classList.add("btn");
+            btnRef.classList.add("btn-danger");
+            btnRef.classList.add("h-25")
+            btnRef.style.margin = "0.25rem";
+            btnRef.innerHTML = "Ta bort";
+
+            btnRef.addEventListener("click", (event) => {
+                modalBodyRef.removeChild(divRef);
+                let index = orders.indexOf(order);
+                if(index !== -1){
+                    orders.splice(index, 1);
+                }
             })
 
+            divRef.appendChild(innerDivRef);
+            divRef.appendChild(btnRef);
             modalBodyRef.appendChild(divRef);
         });
     }

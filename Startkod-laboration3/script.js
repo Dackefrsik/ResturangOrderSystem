@@ -283,11 +283,22 @@ function addEventListenerTobutton(btnRef){
             modalBodyRef.appendChild(labelRef);
             
             modalBodyRef.appendChild(inputRef);
-            productsCurrentOrder.forEach(products => {
+            showOrder(modalBodyRef);
+            /* productsCurrentOrder.forEach(products => {
                 let pRef = document.createElement("p");
                 pRef.textContent = products;
+
+                let buttonRef = document.createElement("button");
+                buttonRef.setAttribute("data-name", products);
+                buttonRef.addEventListener("click", () => {
+                    productsCurrentOrder.remove(products);
+                    buttonRef.remove();
+                })
                 modalBodyRef.appendChild(pRef);
-            })
+                modalBodyRef.appendChild(buttonRef);
+
+
+            }) */
             
         }
         else if(productsCurrentOrder.length == 0){
@@ -312,10 +323,11 @@ function addEventListenerTobutton(btnRef){
 
 let placeOrderRef = document.querySelector("#placeOrder");
 placeOrderRef.addEventListener("click", () => {
+    let modalBodyRefOrders = document.querySelector(".modal-body-nuvarandeBeställning");
     let h3Ref = document.querySelector("#orderNumber");
     let inputRef = document.querySelector("[type='number']");
     console.log("modal");
-    let modalBodyRefOrders = document.querySelector(".modal-body-nuvarandeBeställning");
+    
     let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
     modalBodyRefOrders.innerHTML = "";
     modalBodyRef.innerHTML = "";
@@ -346,6 +358,49 @@ placeOrderRef.addEventListener("click", () => {
         });
     }
     placeOrderRef.removeEventListener("click", null);
+    
 });
+
+// #endregion
+
+// #region för att visa beställning
+
+function showOrder(modalBodyRef){
+    if(productsCurrentOrder.length > 0){
+        placeOrderRef.classList.remove("d-none");
+        productsCurrentOrder.forEach(products => {
+            
+        let divRef = document.createElement("div");
+        divRef.classList.add("d-flex");
+        divRef.classList.add("justify-content-between");
+        let pRef = document.createElement("p");
+        pRef.textContent = products;
+        let buttonRef = document.createElement("button");
+        buttonRef.setAttribute("data-name", products);
+        buttonRef.innerHTML = "Ta bort";
+        buttonRef.classList.add("btn");
+        buttonRef.classList.add("btn-danger");
+        buttonRef.style.margin = "0.25rem";
+        buttonRef.addEventListener("click", (event) => {
+            divRef.removeChild(buttonRef);
+            divRef.removeChild(pRef);
+            let productName = event.target.getAttribute("data-name");
+            let index = productsCurrentOrder.indexOf(productName)
+            if(index !== -1){
+                productsCurrentOrder.splice(index, 1);
+            }
+            if(productsCurrentOrder.length == 0){
+                modalBodyRef.innerHTML = "";
+                placeOrderRef.classList.add("d-none");
+            }
+        })
+        divRef.appendChild(pRef);
+        divRef.appendChild(buttonRef);
+        modalBodyRef.appendChild(divRef);
+            
+            
+        })
+    }
+}
 
 // #endregion

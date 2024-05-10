@@ -12,6 +12,7 @@ window.oGlobalObject = {
 
 let orders = [];
 let productsCurrentOrder = [];
+let priceCurrentOrder = [];
 
 
 // #endregion
@@ -148,7 +149,7 @@ window.addEventListener("load", () => {
     }
     
 
-    //Pizzor klass 2
+    /* //Pizzor klass 2
     let tableClass_2Ref = document.querySelector("#class_2");
     let pizza_class_2Ref = menu["pizza_class_2"];
 
@@ -269,8 +270,9 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef2);
         trRef.appendChild(btnRef);
         tableDyckRef.appendChild(trRef);
-    })
+    }) */
 
+    // #region timer i menyraden
     let info_timerRef = document.querySelector("#info_timer");
 
     info_timerRef.textContent = "";
@@ -294,6 +296,8 @@ window.addEventListener("load", () => {
         }
     },1000)
 
+    // #endregion
+
 })
 
 // #endregion
@@ -310,8 +314,10 @@ function addEventListenerTobutton(btnRef){
     inputRef.setAttribute("value", 1);
     btnRef.addEventListener("click", () => {
         productsCurrentOrder.push(btnRef.getAttribute("data-name"));
+        priceCurrentOrder.push(btnRef.getAttribute("data-price"));
 
         if(productsCurrentOrder.length > 0){
+            countPrice();
             //placeOrderRef.classList.remove("d-none");
             let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
             modalBodyRef.innerHTML = "";
@@ -432,19 +438,37 @@ function showOrder(modalBodyRef){
             let index = productsCurrentOrder.indexOf(productName)
             if(index !== -1){
                 productsCurrentOrder.splice(index, 1);
+                priceCurrentOrder.splice(index, 1);
+                countPrice();
+                if(productsCurrentOrder.length == 0){
+                    modalBodyRef.innerHTML = "";
+                    placeOrderRef.classList.add("d-none");
+                }
             }
-            if(productsCurrentOrder.length == 0){
-                modalBodyRef.innerHTML = "";
-                placeOrderRef.classList.add("d-none");
-            }
+            
         })
         divRef.appendChild(pRef);
         divRef.appendChild(buttonRef);
-        modalBodyRef.appendChild(divRef);
-            
-            
+        modalBodyRef.appendChild(divRef);  
         })
     }
+}
+
+// #endregion
+
+
+// #region räknar ut totalsumman för en beställning 
+
+function countPrice(){
+    let pPriceRef = document.querySelector(".priceInfo");
+    let pricelable = " "; 
+    let totalprice = 0;
+    priceCurrentOrder.forEach(price => {
+        totalprice += parseInt(price);
+        
+    }); 
+    pricelable = totalprice;
+    pPriceRef.innerHTML = pricelable + " kr";
 }
 
 // #endregion

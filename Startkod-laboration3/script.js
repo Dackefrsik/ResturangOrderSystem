@@ -233,10 +233,10 @@ function addEventListenerTobutton(btnRef){
     btnRef.addEventListener("click", () => {
         productsCurrentOrder.push(btnRef.getAttribute("data-name"));
         priceCurrentOrder.push(btnRef.getAttribute("data-price"));
+        let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
 
         if(productsCurrentOrder.length > 0){
             countPrice();
-            let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
             modalBodyRef.innerHTML = "";
             h3Ref = document.createElement("h3");
             h3Ref.innerHTML = "Order: " + (orders.length + 1);
@@ -251,16 +251,7 @@ function addEventListenerTobutton(btnRef){
             showOrder(modalBodyRef);
             
         }
-        else if(productsCurrentOrder.length == 0){
-            let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
-            modalBodyRef.innerHTML = "";
-            let h3Ref = document.createElement("h3");
-            h3Ref.innerHTML = "Tom beställning";
-            h3Ref.classList.add("text-danger");
-            modalBodyRef.appendChild(h3Ref);
-
-            
-        }  
+        modalBodyRef.classList.remove("text-danger");
         buttonOrder();
     })   
 }
@@ -348,21 +339,23 @@ function showOrder(modalBodyRef){
             buttonRef.classList.add("btn", "btn-danger");
             buttonRef.style.margin = "0.25rem";
             buttonRef.addEventListener("click", (event) => {
+                
                 innerDivRef.removeChild(buttonRef);
                 innerDivRef.removeChild(pRef);
                 let productName = event.target.getAttribute("data-name");
-                let index = productsCurrentOrder.indexOf(productName)
+                let index = productsCurrentOrder.indexOf(productName);
                 if(index !== -1){
                     productsCurrentOrder.splice(index, 1);
                     priceCurrentOrder.splice(index, 1);
                     countPrice();
                     if(productsCurrentOrder.length == 0){
-                        console.log("fuck");
                         modalBodyRef.innerHTML = "Tom beställning";
-                        modalBodyRef.classList.add("text-danger", "d-none");
+                        modalBodyRef.classList.add("text-danger");
+                        let placeOrderRef = document.querySelector("#placeOrder");
+                        placeOrderRef.classList.add("d-none");
 
                     }
-
+                    
                     let pricelable = " "; 
                     let totalprice = 0;
                     priceCurrentOrder.forEach(price => {

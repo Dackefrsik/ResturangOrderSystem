@@ -101,7 +101,8 @@
         </div>
 
         <!-- #region Modal -->
-        <div class="modal fade" id="NuvarandeModal" tabindex="-1" aria-labelledby="NuvarandeModal" aria-hidden="true">
+        <!-- Tror allt detta är överflödigt 
+            <div class="modal fade" tabindex="-1" aria-labelledby="NuvarandeModa" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-primary">
@@ -128,18 +129,18 @@
                     <button type="button" class="btn btn-primary d-none" id="placeOrder">Lägg beställning</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
+            <!-- Tror denna är överflödig 
             <div class="container-fluid fixed-bottom bg-success" data-bs-toggle="modal"
                 data-bs-target="#NuvarandeModal">
                 <div class="d-flex justify-content-between">
                     <p class="text-white">Totalsumma:</p>
                     <p class="priceInfo text-white">0 kr</p>
                 </div>
-            </div>
+            </div> -->
 
-            <!-- #region Modal -->
-            <div class="modal fade" id="NuvarandeModal" tabindex="-1" aria-labelledby="NuvarandeModal"
-                aria-hidden="true">
+            <!-- #region Modal för nuvarande beställning -->
+            <div class="modal fade" id="NuvarandeModal" tabindex="-1" aria-labelledby="NuvarandeModal" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
@@ -150,21 +151,20 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Avbryt</button>
-                            <button type="button" class="btn btn-primary d-none" id="placeOrder">Lägg
-                                beställning</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Stäng</button>
+                            <button type="button" class="btn btn-primary d-none" id="placeOrder">Lägg beställning</button>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- #endregion -->
 
-            <!-- #region Modal -->
+            <!-- #region Modal för lagda beställningar -->
             <div class="modal fade" id="LaggdaModal" tabindex="-1" aria-labelledby="LaggdaModal" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header bg-secondary">
-                            <h1 class="modal-title fs-5 text-white">Laggda beställning</h1>
+                            <h1 class="modal-title fs-5 text-white">Laggda beställningar</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body-laggdaBeställning m-3">

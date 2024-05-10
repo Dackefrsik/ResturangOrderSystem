@@ -12,6 +12,7 @@ window.oGlobalObject = {
 
 let orders = [];
 let productsCurrentOrder = [];
+let priceCurrentOrder = [];
 
 
 // #endregion
@@ -87,10 +88,32 @@ window.addEventListener("load", () => {
     let pizza_class_1Ref = menu["pizza_class_1"];
 
     pizza_class_1Ref.forEach(pizza => {
-        let trRef = document.createElement("tr");
+        /* let trRef = document.createElement("tr");
         let tdRef1 = document.createElement("td");
         let tdRef2 = document.createElement("td");
-        let tdRef3 = document.createElement("td");
+        let tdRef3 = document.createElement("td"); */
+        let container = document.querySelector(".container-fluid");
+        let divRef = document.createElement("div");
+        divRef.classList.add("card");
+        divRef.classList.add("m-2");
+        let cardBodyRef = document.createElement("div");
+       
+        let divInBody1 = document.createElement("div");
+        divInBody1.classList.add("card-body");
+        let divInBody2 =document.createElement("div");
+        let h3Ref = document.createElement("h3");
+        h3Ref.classList.add("card-title");
+        h3Ref.innerHTML = pizza.name;
+        divInBody1.appendChild(h3Ref);
+        let pRef = document.createElement("p");
+        pRef.innerHTML = pizza.price + " kr";
+        divInBody1.appendChild(pRef);
+
+        pizza.contents.forEach(item => {
+            let pRef2 = document.createElement("p");
+            pRef2.innerHTML = item;
+            divInBody1.appendChild(pRef2);
+        })
 
         let btnRef = document.createElement("input");
         btnRef.setAttribute("type", "button");
@@ -98,20 +121,34 @@ window.addEventListener("load", () => {
         btnRef.classList.add("btn-success");
         btnRef.setAttribute("value", "Lägg till");
         btnRef.setAttribute("data-name", pizza.name);
+        btnRef.setAttribute("data-price", pizza.price);
+
+        divInBody2.appendChild(btnRef);
+        divInBody2.classList.add("d-flex");
+        divInBody2.classList.add("align-items-end");
+        divInBody2.classList.add("p-2")
+        cardBodyRef.classList.add("d-flex");
+        cardBodyRef.classList.add("justify-content-between");
+        cardBodyRef.appendChild(divInBody1);
+        cardBodyRef.appendChild(divInBody2);
+        divRef.appendChild(cardBodyRef);
+        container.appendChild(divRef);
+        
+        
 
         addEventListenerTobutton(btnRef);
 
-        tdRef1.textContent = pizza.name;
+        /* tdRef1.textContent = pizza.name;
         tdRef2.textContent = pizza.contents;
         tdRef3.textContent = pizza.price + " kr";
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
         trRef.appendChild(btnRef);
-        tableClass_1Ref.appendChild(trRef);
+        tableClass_1Ref.appendChild(trRef); */
     });
 
-    //Pizzor klass 2
+    /* //Pizzor klass 2
     let tableClass_2Ref = document.querySelector("#class_2");
     let pizza_class_2Ref = menu["pizza_class_2"];
 
@@ -232,8 +269,9 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef2);
         trRef.appendChild(btnRef);
         tableDyckRef.appendChild(trRef);
-    })
+    }) */
 
+    // #region timer i menyraden
     let info_timerRef = document.querySelector("#info_timer");
 
     info_timerRef.textContent = "";
@@ -257,6 +295,8 @@ window.addEventListener("load", () => {
         }
     },1000)
 
+    // #endregion
+
 })
 
 // #endregion
@@ -273,8 +313,10 @@ function addEventListenerTobutton(btnRef){
     inputRef.setAttribute("value", 1);
     btnRef.addEventListener("click", () => {
         productsCurrentOrder.push(btnRef.getAttribute("data-name"));
+        priceCurrentOrder.push(btnRef.getAttribute("data-price"));
 
         if(productsCurrentOrder.length > 0){
+            countPrice();
             //placeOrderRef.classList.remove("d-none");
             let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
             modalBodyRef.innerHTML = "";
@@ -395,19 +437,37 @@ function showOrder(modalBodyRef){
             let index = productsCurrentOrder.indexOf(productName)
             if(index !== -1){
                 productsCurrentOrder.splice(index, 1);
+                priceCurrentOrder.splice(index, 1);
+                countPrice();
+                if(productsCurrentOrder.length == 0){
+                    modalBodyRef.innerHTML = "";
+                    placeOrderRef.classList.add("d-none");
+                }
             }
-            if(productsCurrentOrder.length == 0){
-                modalBodyRef.innerHTML = "";
-                placeOrderRef.classList.add("d-none");
-            }
+            
         })
         divRef.appendChild(pRef);
         divRef.appendChild(buttonRef);
-        modalBodyRef.appendChild(divRef);
-            
-            
+        modalBodyRef.appendChild(divRef);  
         })
     }
+}
+
+// #endregion
+
+
+// #region räknar ut totalsumman för en beställning 
+
+function countPrice(){
+    let pPriceRef = document.querySelector(".priceInfo");
+    let pricelable = " "; 
+    let totalprice = 0;
+    priceCurrentOrder.forEach(price => {
+        totalprice += parseInt(price);
+        
+    }); 
+    pricelable = totalprice;
+    pPriceRef.innerHTML = pricelable + " kr";
 }
 
 // #endregion

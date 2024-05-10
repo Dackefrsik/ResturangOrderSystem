@@ -8,7 +8,7 @@ window.oGlobalObject = {
 }
 // #endregion
 
-// #region Modal för pågående beställning
+// #region Modal för vektorer som sparar ordrar och produkter i den ordern som läggs
 
 let orders = [];
 let productsCurrentOrder = [];
@@ -16,7 +16,7 @@ let productsCurrentOrder = [];
 
 // #endregion
 
-// #region Modal för pågående beställning
+// #region Modal klassen för genomförd produkt
 
 class Order {
     constructor(orderNumber, table, products){
@@ -27,9 +27,10 @@ class Order {
 }
 
 // #endregion
+
+// #region skirver ut alla produktyer vid load
 window.addEventListener("load", () => {
 
-    // #region skriver ut alla produkter
     var menu = {
         "pizza_class_1": [
             {"name": "Margherita", "contents": ["Tomatsås", "Ost"], "price": 65 },
@@ -90,6 +91,7 @@ window.addEventListener("load", () => {
         let tdRef1 = document.createElement("td");
         let tdRef2 = document.createElement("td");
         let tdRef3 = document.createElement("td");
+
         let btnRef = document.createElement("input");
         btnRef.setAttribute("type", "button");
         btnRef.classList.add("btn");
@@ -105,7 +107,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        //trRef.appendChild(btnRef);
+        trRef.appendChild(btnRef);
         tableClass_1Ref.appendChild(trRef);
     });
 
@@ -118,6 +120,7 @@ window.addEventListener("load", () => {
         let tdRef1 = document.createElement("td");
         let tdRef2 = document.createElement("td");
         let tdRef3 = document.createElement("td");
+        
         let btnRef = document.createElement("input");
         btnRef.setAttribute("type", "button");
         btnRef.classList.add("btn");
@@ -133,7 +136,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        //trRef.appendChild(btnRef);
+        trRef.appendChild(btnRef);
         tableClass_2Ref.appendChild(trRef);
     });
 
@@ -146,6 +149,7 @@ window.addEventListener("load", () => {
         let tdRef1 = document.createElement("td");
         let tdRef2 = document.createElement("td");
         let tdRef3 = document.createElement("td");
+
         let btnRef = document.createElement("input");
         btnRef.setAttribute("type", "button");
         btnRef.classList.add("btn");
@@ -161,7 +165,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        //trRef.appendChild(btnRef);
+        trRef.appendChild(btnRef);
         tableClass_3Ref.appendChild(trRef);
     })
 
@@ -174,6 +178,7 @@ window.addEventListener("load", () => {
         let tdRef1 = document.createElement("td");
         let tdRef2 = document.createElement("td");
         let tdRef3 = document.createElement("td");
+        
         let btnRef = document.createElement("input");
         btnRef.setAttribute("type", "button");
         btnRef.classList.add("btn");
@@ -198,7 +203,7 @@ window.addEventListener("load", () => {
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
         trRef.appendChild(tdRef3);
-        //trRef.appendChild(btnRef);
+        trRef.appendChild(btnRef);
         tableSoserRef.appendChild(trRef);
     })
 
@@ -210,6 +215,7 @@ window.addEventListener("load", () => {
         let trRef = document.createElement("tr");
         let tdRef1 = document.createElement("td");
         let tdRef2 = document.createElement("td");
+
         let btnRef = document.createElement("input");
         btnRef.setAttribute("type", "button");
         btnRef.classList.add("btn");
@@ -224,7 +230,7 @@ window.addEventListener("load", () => {
 
         trRef.appendChild(tdRef1);
         trRef.appendChild(tdRef2);
-        //trRef.appendChild(btnRef);
+        trRef.appendChild(btnRef);
         tableDyckRef.appendChild(trRef);
     })
 
@@ -254,7 +260,6 @@ window.addEventListener("load", () => {
 })
 
 // #endregion
-
 
 // #region Funktion för att addera lyssnre till knappen vid varje produkt
 function addEventListenerTobutton(btnRef){
@@ -365,7 +370,7 @@ placeOrderRef.addEventListener("click", () => {
 
 // #endregion
 
-// #region för att visa beställning
+// #region för att visa nuvarande beställning
 
 function showOrder(modalBodyRef){
     if(productsCurrentOrder.length > 0){

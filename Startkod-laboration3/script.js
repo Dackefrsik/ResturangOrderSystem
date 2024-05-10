@@ -90,7 +90,7 @@ window.addEventListener("load", () => {
     function createPizzaCard(item){
         //kolumn som håller kort
         let col = document.createElement("div");
-        col.classList.add("col-12", "col-md-6", "col-lg-4", "col-xl-3", "mb-2", "px-0", "px-md-2");
+        col.classList.add("col-12", "col-md-6", "col-xl-4", "col-xxl-3", "mb-2", "px-0", "px-md-2");
         
         //kort-div
         let card = document.createElement("div");
@@ -102,7 +102,7 @@ window.addEventListener("load", () => {
 
         //kort-body
         let cardBody = document.createElement("div");
-        cardBody.classList.add("d-flex", "flex-column", "justify-content-between", "card-body","col-6");
+        cardBody.classList.add("d-flex", "flex-column", "justify-content-between", "card-body","col-7");
 
         //kort-text
         let h5 = document.createElement("h5");
@@ -139,7 +139,7 @@ window.addEventListener("load", () => {
         btn.setAttribute("data-name", item.name);
         btn.setAttribute("data-price", item.price);
         let buttonDiv = document.createElement("div");
-        buttonDiv.classList.add("col-6", "d-flex", "align-items-end", "justify-content-end", "p-3");
+        buttonDiv.classList.add("col-5", "d-flex", "align-items-end", "justify-content-end", "p-3");
 
         //appendar allt
         buttonDiv.appendChild(btn);

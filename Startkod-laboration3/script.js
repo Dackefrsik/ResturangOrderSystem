@@ -83,35 +83,70 @@ window.addEventListener("load", () => {
             {"name": "Fanta 50 cl ", "price":  20 }
         ]
     }
+    createMenu();
 
     //Pizzor klass 1
-    let tableClass_1Ref = document.querySelector("#class_1");
-    let pizza_class_1Ref = menu["pizza_class_1"];
+    console.log(pizza_class_1Ref);
+    function createPizzaCard(pizza){
+        let col = document.createElement("div");
+        col.classList.add("col-12", "col-md-6", "col-lg-4", "col-xl-3", "mb-2", "px-0", "px-md-2");
+        
+        let card = document.createElement("div");
+        card.classList.add("card", "h-100");
+        let cardInner = document.createElement("div");
+        cardInner.classList.add("row", "no-gutters",  "mx-0", "h-100");
+        let cardBody = document.createElement("div");
+        cardBody.classList.add("d-flex", "flex-column", "justify-content-between", "card-body","col-6");
+        let h5 = document.createElement("h5");
+        h5.classList.add("card-title");
+        h5.textContent = pizza.name;
+        let h6 = document.createElement("h6");
+        h6.classList.add("card-subtitle");
+        h6.textContent = `Pris: ${pizza.price} kr`;
+        let p2 = document.createElement("p");
+        p2.classList.add("card-text", "text-muted");
+        p2.textContent = `${pizza.contents.join(", ")}`;
+        let btn = document.createElement("button");
+        btn.classList.add("btn", "btn-success");
+        btn.textContent = "Lägg till";
+        btn.setAttribute("data-name", pizza.name);
+        let buttonDiv = document.createElement("div");
+        buttonDiv.classList.add("col-6", "d-flex", "align-items-end", "justify-content-end", "p-3");
+        buttonDiv.appendChild(btn);
+        cardBody.appendChild(h5);
+        cardBody.appendChild(h6);
+        cardBody.appendChild(p2);
+        
+        cardInner.appendChild(cardBody);
+        cardInner.appendChild(buttonDiv);
+        card.appendChild(cardInner);
+        col.appendChild(card);
 
-    pizza_class_1Ref.forEach(pizza => {
-        let trRef = document.createElement("tr");
-        let tdRef1 = document.createElement("td");
-        let tdRef2 = document.createElement("td");
-        let tdRef3 = document.createElement("td");
+        return col;
+    }
+    function createMenu(){
+        let class1_row = document.querySelector("#class_1");
+        let pizza_class_1Ref = menu["pizza_class_1"];
+        pizza_class_1Ref.forEach(pizza => {
+            let col = createPizzaCard(pizza);
+            class1_row.appendChild(col);
+        });
+        let class2_row = document.querySelector("#class_2");
+        let pizza_class_2Ref = menu["pizza_class_2"];
+        pizza_class_2Ref.forEach(pizza => {
+            let col = createPizzaCard(pizza);
+            class2_row.appendChild(col);
+        });
 
-        let btnRef = document.createElement("input");
-        btnRef.setAttribute("type", "button");
-        btnRef.classList.add("btn");
-        btnRef.classList.add("btn-success");
-        btnRef.setAttribute("value", "Lägg till");
-        btnRef.setAttribute("data-name", pizza.name);
+        let class3_row = document.querySelector("#class_3");
+        let pizza_class_3Ref = menu["pizza_class_3"];
+        pizza_class_3Ref.forEach(pizza => {
+            let col = createPizzaCard(pizza);
+            class3_row.appendChild(col);
+        });
 
-        addEventListenerTobutton(btnRef);
-
-        tdRef1.textContent = pizza.name;
-        tdRef2.textContent = pizza.contents;
-        tdRef3.textContent = pizza.price + " kr";
-        trRef.appendChild(tdRef1);
-        trRef.appendChild(tdRef2);
-        trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
-        tableClass_1Ref.appendChild(trRef);
-    });
+    }
+    
 
     //Pizzor klass 2
     let tableClass_2Ref = document.querySelector("#class_2");

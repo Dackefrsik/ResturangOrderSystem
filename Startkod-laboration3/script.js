@@ -363,7 +363,6 @@ function addEventListenerTobutton(btnRef){
 
         if(productsCurrentOrder.length > 0){
             countPrice();
-            //placeOrderRef.classList.remove("d-none");
             let modalBodyRef = document.querySelector(".modal-body-nuvarandeBeställning");
             modalBodyRef.innerHTML = "";
             h3Ref = document.createElement("h3");
@@ -397,6 +396,8 @@ function addEventListenerTobutton(btnRef){
 
 let placeOrderRef = document.querySelector("#placeOrder");
 placeOrderRef.addEventListener("click", () => {
+    let pRef = document.querySelector(".priceInfo");
+    pRef.innerHTML = "0 kr";
     let modalBodyRefOrders = document.querySelector(".modal-body-nuvarandeBeställning");
     let h3Ref = document.querySelector("#orderNumber");
     let inputRef = document.querySelector("[type='number']");
@@ -489,8 +490,16 @@ function showOrder(modalBodyRef){
                         modalBodyRef.innerHTML = "";
                         placeOrderRef.classList.add("d-none");
                     }
+
+                    let pricelable = " "; 
+                    let totalprice = 0;
+                    priceCurrentOrder.forEach(price => {
+                        totalprice += parseInt(price); 
+                    });
+
+                    pricelable = totalprice;
+                    pRef2.textContent = pricelable + " kr"; 
                 }
-                
             })
             innerDivRef.appendChild(pRef);
             innerDivRef.appendChild(buttonRef);
@@ -500,6 +509,7 @@ function showOrder(modalBodyRef){
         let diveTotalSumma = document.createElement("div");
         diveTotalSumma.classList.add("d-flex", "justify-content-between");
         let pRef = document.createElement("p");
+        pRef.setAttribute("id", "TotalsummaOrder");
         let pRef2 = document.createElement("p");
         pRef.textContent = "Totalsumma:";
         let pricelable = " "; 
@@ -508,7 +518,7 @@ function showOrder(modalBodyRef){
             totalprice += parseInt(price); 
         }); 
         pricelable = totalprice;
-        pRef2.textContent = pricelable + " kr";
+        pRef2.textContent = pricelable + " kr"; 
         diveTotalSumma.appendChild(pRef);
         diveTotalSumma.appendChild(pRef2);
         modalBodyRef.appendChild(divRef); 

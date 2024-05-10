@@ -88,36 +88,64 @@ window.addEventListener("load", () => {
 
     //Pizzor klass 1
     console.log(pizza_class_1Ref);
-    function createPizzaCard(pizza){
+    function createPizzaCard(item){
+        //kolumn som håller kort
         let col = document.createElement("div");
         col.classList.add("col-12", "col-md-6", "col-lg-4", "col-xl-3", "mb-2", "px-0", "px-md-2");
         
+        //kort-div
         let card = document.createElement("div");
         card.classList.add("card", "h-100");
+
+        //kort-inner-div som gör en row
         let cardInner = document.createElement("div");
         cardInner.classList.add("row", "no-gutters",  "mx-0", "h-100");
+
+        //kort-body
         let cardBody = document.createElement("div");
         cardBody.classList.add("d-flex", "flex-column", "justify-content-between", "card-body","col-6");
+
+        //kort-text
         let h5 = document.createElement("h5");
         h5.classList.add("card-title");
-        h5.textContent = pizza.name;
+        h5.textContent = item.name;
         let h6 = document.createElement("h6");
         h6.classList.add("card-subtitle");
-        h6.textContent = `Pris: ${pizza.price} kr`;
+        h6.textContent = `${item.price}kr`;
+
+        cardBody.appendChild(h5);
+        cardBody.appendChild(h6);
+
+        //ingredienser
+        if(item.contents != null){
         let p2 = document.createElement("p");
         p2.classList.add("card-text", "text-muted");
-        p2.textContent = `${pizza.contents.join(", ")}`;
+        let newContentArray = [];
+        //byter ut a: mot strong
+        item.contents.forEach(content => {
+            if(content.includes("a:")){
+                content = content.replace(content, "<strong>" + content.replace("a:", "") + "</strong>");
+            }
+            newContentArray.push(content);
+        });
+        p2.innerHTML = `${newContentArray.join(", ")}`;
+
+        cardBody.appendChild(p2);
+        }   
+
+        //knapp
         let btn = document.createElement("button");
         btn.classList.add("btn", "btn-success");
         btn.textContent = "Lägg till";
-        btn.setAttribute("data-name", pizza.name);
-        btn.setAttribute("data-price", pizza.price);
+        btn.setAttribute("data-name", item.name);
+        btn.setAttribute("data-price", item.price);
         let buttonDiv = document.createElement("div");
         buttonDiv.classList.add("col-6", "d-flex", "align-items-end", "justify-content-end", "p-3");
+
+        //appendar allt
         buttonDiv.appendChild(btn);
-        cardBody.appendChild(h5);
-        cardBody.appendChild(h6);
-        cardBody.appendChild(p2);
+        
+        
         
         addEventListenerTobutton(btn);
 
@@ -147,6 +175,20 @@ window.addEventListener("load", () => {
         pizza_class_3Ref.forEach(pizza => {
             let col = createPizzaCard(pizza);
             class3_row.appendChild(col);
+        });
+
+        let sauces_row = document.querySelector("#soser");
+        let saucesRef = menu["sauces"];
+        saucesRef.forEach(sauce => {
+            let col = createPizzaCard(sauce);
+            sauces_row.appendChild(col);
+        });
+
+        let drinks_row = document.querySelector("#drycker");
+        let drinksRef = menu["drinks"];
+        drinksRef.forEach(drink => {
+            let col = createPizzaCard(drink);
+            drinks_row.appendChild(col);
         });
 
     }

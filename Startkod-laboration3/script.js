@@ -111,6 +111,7 @@ window.addEventListener("load", () => {
         btn.classList.add("btn", "btn-success");
         btn.textContent = "Lägg till";
         btn.setAttribute("data-name", pizza.name);
+        btn.setAttribute("data-price", pizza.price);
         let buttonDiv = document.createElement("div");
         buttonDiv.classList.add("col-6", "d-flex", "align-items-end", "justify-content-end", "p-3");
         buttonDiv.appendChild(btn);
@@ -118,6 +119,8 @@ window.addEventListener("load", () => {
         cardBody.appendChild(h6);
         cardBody.appendChild(p2);
         
+        addEventListenerTobutton(btn);
+
         cardInner.appendChild(cardBody);
         cardInner.appendChild(buttonDiv);
         card.appendChild(cardInner);

@@ -26,6 +26,8 @@ class Order {
     }
 }
 
+//hej
+
 // #endregion
 
 // #region skirver ut alla produktyer vid load

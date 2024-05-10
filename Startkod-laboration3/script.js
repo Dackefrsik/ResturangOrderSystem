@@ -420,45 +420,61 @@ placeOrderRef.addEventListener("click", () => {
 
 function showOrder(modalBodyRef){
     if(productsCurrentOrder.length > 0){
+        let divRef = document.createElement("div");
         placeOrderRef.classList.remove("d-none");
         productsCurrentOrder.forEach(products => {
+            let innerDivRef = document.createElement("div");    
             
-        let divRef = document.createElement("div");
-        divRef.classList.add("d-flex");
-        divRef.classList.add("justify-content-between");
-        let pRef = document.createElement("p");
-        pRef.textContent = products;
-        let buttonRef = document.createElement("button");
-        buttonRef.setAttribute("data-name", products);
-        buttonRef.innerHTML = "Ta bort";
-        buttonRef.classList.add("btn");
-        buttonRef.classList.add("btn-danger");
-        buttonRef.style.margin = "0.25rem";
-        buttonRef.addEventListener("click", (event) => {
-            divRef.removeChild(buttonRef);
-            divRef.removeChild(pRef);
-            let productName = event.target.getAttribute("data-name");
-            let index = productsCurrentOrder.indexOf(productName)
-            if(index !== -1){
-                productsCurrentOrder.splice(index, 1);
-                priceCurrentOrder.splice(index, 1);
-                countPrice();
-                if(productsCurrentOrder.length == 0){
-                    modalBodyRef.innerHTML = "";
-                    placeOrderRef.classList.add("d-none");
+            innerDivRef.classList.add("d-flex", "justify-content-between");
+            let pRef = document.createElement("p");
+            pRef.textContent = products;
+            let buttonRef = document.createElement("button");
+            buttonRef.setAttribute("data-name", products);
+            buttonRef.innerHTML = "Ta bort";
+            buttonRef.classList.add("btn");
+            buttonRef.classList.add("btn-danger");
+            buttonRef.style.margin = "0.25rem";
+            buttonRef.addEventListener("click", (event) => {
+                innerDivRef.removeChild(buttonRef);
+                innerDivRef.removeChild(pRef);
+                let productName = event.target.getAttribute("data-name");
+                let index = productsCurrentOrder.indexOf(productName)
+                if(index !== -1){
+                    productsCurrentOrder.splice(index, 1);
+                    priceCurrentOrder.splice(index, 1);
+                    countPrice();
+                    if(productsCurrentOrder.length == 0){
+                        modalBodyRef.innerHTML = "";
+                        placeOrderRef.classList.add("d-none");
+                    }
                 }
-            }
-            
+                
+            })
+            innerDivRef.appendChild(pRef);
+            innerDivRef.appendChild(buttonRef);
+            divRef.appendChild(innerDivRef);
         })
-        divRef.appendChild(pRef);
-        divRef.appendChild(buttonRef);
-        modalBodyRef.appendChild(divRef);  
-        })
+        
+        let diveTotalSumma = document.createElement("div");
+        diveTotalSumma.classList.add("d-flex", "justify-content-between");
+        let pRef = document.createElement("p");
+        let pRef2 = document.createElement("p");
+        pRef.textContent = "Totalsumma:";
+        let pricelable = " "; 
+        let totalprice = 0;
+        priceCurrentOrder.forEach(price => {
+            totalprice += parseInt(price); 
+        }); 
+        pricelable = totalprice;
+        pRef2.textContent = pricelable + " kr";
+        diveTotalSumma.appendChild(pRef);
+        diveTotalSumma.appendChild(pRef2);
+        modalBodyRef.appendChild(divRef); 
+        modalBodyRef.appendChild(diveTotalSumma);
     }
 }
 
 // #endregion
-
 
 // #region räknar ut totalsumman för en beställning 
 

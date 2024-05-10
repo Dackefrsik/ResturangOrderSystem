@@ -177,6 +177,20 @@ window.addEventListener("load", () => {
             class3_row.appendChild(col);
         });
 
+        let sauces_row = document.querySelector("#soser");
+        let saucesRef = menu["sauces"];
+        saucesRef.forEach(sauce => {
+            let col = createPizzaCard(sauce);
+            sauces_row.appendChild(col);
+        });
+
+        let drinks_row = document.querySelector("#drycker");
+        let drinksRef = menu["drinks"];
+        drinksRef.forEach(drink => {
+            let col = createPizzaCard(drink);
+            drinks_row.appendChild(col);
+        });
+
     }
     
 

@@ -88,7 +88,7 @@ window.addEventListener("load", () => {
 
     //Pizzor klass 1
     console.log(pizza_class_1Ref);
-    function createPizzaCard(pizza){
+    function createPizzaCard(item){
         //kolumn som håller kort
         let col = document.createElement("div");
         col.classList.add("col-12", "col-md-6", "col-lg-4", "col-xl-3", "mb-2", "px-0", "px-md-2");
@@ -108,18 +108,21 @@ window.addEventListener("load", () => {
         //kort-text
         let h5 = document.createElement("h5");
         h5.classList.add("card-title");
-        h5.textContent = pizza.name;
+        h5.textContent = item.name;
         let h6 = document.createElement("h6");
         h6.classList.add("card-subtitle");
-        h6.textContent = `${pizza.price}kr`;
+        h6.textContent = `${item.price}kr`;
+
+        cardBody.appendChild(h5);
+        cardBody.appendChild(h6);
 
         //ingredienser
+        if(item.contents != null){
         let p2 = document.createElement("p");
         p2.classList.add("card-text", "text-muted");
         let newContentArray = [];
-
         //byter ut a: mot strong
-        pizza.contents.forEach(content => {
+        item.contents.forEach(content => {
             if(content.includes("a:")){
                 content = content.replace(content, "<strong>" + content.replace("a:", "") + "</strong>");
             }
@@ -127,20 +130,22 @@ window.addEventListener("load", () => {
         });
         p2.innerHTML = `${newContentArray.join(", ")}`;
 
+        cardBody.appendChild(p2);
+        }   
+
         //knapp
         let btn = document.createElement("button");
         btn.classList.add("btn", "btn-success");
         btn.textContent = "Lägg till";
-        btn.setAttribute("data-name", pizza.name);
-        btn.setAttribute("data-price", pizza.price);
+        btn.setAttribute("data-name", item.name);
+        btn.setAttribute("data-price", item.price);
         let buttonDiv = document.createElement("div");
         buttonDiv.classList.add("col-6", "d-flex", "align-items-end", "justify-content-end", "p-3");
 
         //appendar allt
         buttonDiv.appendChild(btn);
-        cardBody.appendChild(h5);
-        cardBody.appendChild(h6);
-        cardBody.appendChild(p2);
+        
+        
         
         addEventListenerTobutton(btn);
 

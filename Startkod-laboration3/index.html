@@ -40,11 +40,11 @@
                 
             </div>
         </div>
-        <div class="container-fluid fixed-bottom bg-success" data-bs-toggle="modal" data-bs-target="#NuvarandeModal">
-            <div class="d-flex justify-content-between">
+        <div class="container-fluid fixed-bottom d-grid">
+            <button class="d-flex justify-content-between btn btn-success mb-2" id="buttonOrderModal" data-bs-toggle="modal" data-bs-target="#NuvarandeModal" disabled>
                 <p class="text-white">Totalsumma:</p>
                 <p class="priceInfo text-white">0 kr</p>
-            </div>
+            </button>
         </div>
 
         <!-- #region Modal -->
@@ -59,7 +59,7 @@
                     
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Avbryt</button>
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary d-none" id="placeOrder">Lägg beställning</button>
                     </div>
                 </div>

@@ -87,7 +87,6 @@ window.addEventListener("load", () => {
     createMenu();
 
     //Pizzor klass 1
-    console.log(pizza_class_1Ref);
     function createPizzaCard(item){
         //kolumn som håller kort
         let col = document.createElement("div");
@@ -145,8 +144,6 @@ window.addEventListener("load", () => {
         //appendar allt
         buttonDiv.appendChild(btn);
         
-        
-        
         addEventListenerTobutton(btn);
 
         cardInner.appendChild(cardBody);
@@ -192,130 +189,6 @@ window.addEventListener("load", () => {
         });
 
     }
-    
-
-    /* //Pizzor klass 2
-    let tableClass_2Ref = document.querySelector("#class_2");
-    let pizza_class_2Ref = menu["pizza_class_2"];
-
-    pizza_class_2Ref.forEach(pizza => {
-        let trRef = document.createElement("tr");
-        let tdRef1 = document.createElement("td");
-        let tdRef2 = document.createElement("td");
-        let tdRef3 = document.createElement("td");
-        
-        let btnRef = document.createElement("input");
-        btnRef.setAttribute("type", "button");
-        btnRef.classList.add("btn");
-        btnRef.classList.add("btn-success");
-        btnRef.setAttribute("value", "Lägg till");
-        btnRef.setAttribute("data-name", pizza.name);
-
-        addEventListenerTobutton(btnRef);
-
-        tdRef1.textContent = pizza.name;
-        tdRef2.textContent = pizza.contents;
-        tdRef3.textContent = pizza.price + " kr";
-        trRef.appendChild(tdRef1);
-        trRef.appendChild(tdRef2);
-        trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
-        tableClass_2Ref.appendChild(trRef);
-    });
-
-    //Pizzor klass 3
-    let tableClass_3Ref = document.querySelector("#class_3");
-    let pizza_class_3Ref = menu["pizza_class_3"];
-
-    pizza_class_3Ref.forEach(pizza => {
-        let trRef = document.createElement("tr");
-        let tdRef1 = document.createElement("td");
-        let tdRef2 = document.createElement("td");
-        let tdRef3 = document.createElement("td");
-
-        let btnRef = document.createElement("input");
-        btnRef.setAttribute("type", "button");
-        btnRef.classList.add("btn");
-        btnRef.classList.add("btn-success");
-        btnRef.setAttribute("value", "Lägg till");
-        btnRef.setAttribute("data-name", pizza.name);
-
-        addEventListenerTobutton(btnRef);
-
-        tdRef1.textContent = pizza.name;
-        tdRef2.textContent = pizza.contents;
-        tdRef3.textContent = pizza.price + " kr";
-        trRef.appendChild(tdRef1);
-        trRef.appendChild(tdRef2);
-        trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
-        tableClass_3Ref.appendChild(trRef);
-    })
-
-    //Såser
-    let tableSoserRef = document.querySelector("#soser");
-    let soserRef = menu["sauces"];
-
-    soserRef.forEach(sauce => {
-        let trRef = document.createElement("tr");
-        let tdRef1 = document.createElement("td");
-        let tdRef2 = document.createElement("td");
-        let tdRef3 = document.createElement("td");
-        
-        let btnRef = document.createElement("input");
-        btnRef.setAttribute("type", "button");
-        btnRef.classList.add("btn");
-        btnRef.classList.add("btn-success");
-        btnRef.setAttribute("value", "Lägg till");
-        btnRef.setAttribute("data-name", sauce.name);
-
-        addEventListenerTobutton(btnRef);
-
-        let sauceAmount = sauce.name.split(" ");        
-
-        if (sauceAmount.length == 4) {
-            tdRef1.textContent = sauceAmount[0];
-            tdRef2.textContent = sauceAmount[1] + " " + sauceAmount[2];
-        }
-        else if(sauceAmount.length == 5){
-            tdRef1.textContent = sauceAmount[0] + " " + sauceAmount[1];
-            tdRef2.textContent = sauceAmount[2] + " " + sauceAmount[3];
-        }
-        
-        tdRef3.textContent = sauce.price + " kr";
-        trRef.appendChild(tdRef1);
-        trRef.appendChild(tdRef2);
-        trRef.appendChild(tdRef3);
-        trRef.appendChild(btnRef);
-        tableSoserRef.appendChild(trRef);
-    })
-
-    //Drycker        
-    let tableDyckRef = document.querySelector("#drycker");
-    let dryckRef = menu["drinks"];
-
-    dryckRef.forEach(dryck => {
-        let trRef = document.createElement("tr");
-        let tdRef1 = document.createElement("td");
-        let tdRef2 = document.createElement("td");
-
-        let btnRef = document.createElement("input");
-        btnRef.setAttribute("type", "button");
-        btnRef.classList.add("btn");
-        btnRef.classList.add("btn-success");
-        btnRef.setAttribute("value", "Lägg till");
-        btnRef.setAttribute("data-name", dryck.name);
-
-        addEventListenerTobutton(btnRef);
-        
-        tdRef1.textContent = dryck.name;
-        tdRef2.textContent = dryck.price + " kr";
-
-        trRef.appendChild(tdRef1);
-        trRef.appendChild(tdRef2);
-        trRef.appendChild(btnRef);
-        tableDyckRef.appendChild(trRef);
-    }) */
 
     // #region timer i menyraden
     let info_timerRef = document.querySelector("#info_timer");
@@ -385,9 +258,11 @@ function addEventListenerTobutton(btnRef){
             h3Ref.innerHTML = "Tom beställning";
             h3Ref.classList.add("text-danger");
             modalBodyRef.appendChild(h3Ref);
+
+            
         }  
-        
-    }) 
+        buttonOrder();
+    })   
 }
 
 // #endregion
@@ -401,7 +276,6 @@ placeOrderRef.addEventListener("click", () => {
     let modalBodyRefOrders = document.querySelector(".modal-body-nuvarandeBeställning");
     let h3Ref = document.querySelector("#orderNumber");
     let inputRef = document.querySelector("[type='number']");
-    console.log("modal");
     
     let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
     modalBodyRefOrders.innerHTML = "";
@@ -414,8 +288,7 @@ placeOrderRef.addEventListener("click", () => {
     if(orders.length > 0){
         orders.forEach(order => {
             let divRef = document.createElement("div");
-            divRef.classList.add("d-flex");
-            divRef.classList.add("justify-content-between");
+            divRef.classList.add("d-flex", "justify-content-between");
             let innerDivRef = document.createElement("div");
             let h3Ref = document.createElement("h3");
             let tableRef = document.createElement("h6");
@@ -434,9 +307,7 @@ placeOrderRef.addEventListener("click", () => {
             })
             
             let btnRef = document.createElement("button");
-            btnRef.classList.add("btn");
-            btnRef.classList.add("btn-danger");
-            btnRef.classList.add("h-25")
+            btnRef.classList.add("btn", "btn-danger", "h-25");
             btnRef.style.margin = "0.25rem";
             btnRef.innerHTML = "Ta bort";
 
@@ -474,8 +345,7 @@ function showOrder(modalBodyRef){
             let buttonRef = document.createElement("button");
             buttonRef.setAttribute("data-name", products);
             buttonRef.innerHTML = "Ta bort";
-            buttonRef.classList.add("btn");
-            buttonRef.classList.add("btn-danger");
+            buttonRef.classList.add("btn", "btn-danger");
             buttonRef.style.margin = "0.25rem";
             buttonRef.addEventListener("click", (event) => {
                 innerDivRef.removeChild(buttonRef);
@@ -487,8 +357,10 @@ function showOrder(modalBodyRef){
                     priceCurrentOrder.splice(index, 1);
                     countPrice();
                     if(productsCurrentOrder.length == 0){
-                        modalBodyRef.innerHTML = "";
-                        placeOrderRef.classList.add("d-none");
+                        console.log("fuck");
+                        modalBodyRef.innerHTML = "Tom beställning";
+                        modalBodyRef.classList.add("text-danger", "d-none");
+
                     }
 
                     let pricelable = " "; 
@@ -500,6 +372,7 @@ function showOrder(modalBodyRef){
                     pricelable = totalprice;
                     pRef2.textContent = pricelable + " kr"; 
                 }
+                buttonOrder();
             })
             innerDivRef.appendChild(pRef);
             innerDivRef.appendChild(buttonRef);
@@ -540,6 +413,21 @@ function countPrice(){
     }); 
     pricelable = totalprice;
     pPriceRef.innerHTML = pricelable + " kr";
+}
+
+// #endregion
+
+// #region för att kolla om knappen för att visa order ska vara gå att klicka på
+
+function buttonOrder(){
+    console.log(productsCurrentOrder.length);
+    let btnRef = document.querySelector("#buttonOrderModal");
+    if(productsCurrentOrder.length > 0){
+        btnRef.removeAttribute("disabled");
+    }
+    else if(productsCurrentOrder.length === 0){
+        btnRef.setAttribute("disabled", true);
+    }
 }
 
 // #endregion

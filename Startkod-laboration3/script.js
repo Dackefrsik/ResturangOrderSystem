@@ -416,4 +416,64 @@ function showOrder(modalBodyRef){
 
 //Hannah
 
+/*Lägger till lyssnare på menyknappen */
+function menyListener() {
+    document.querySelectorAll('.navbar-toggler').forEach(function (button) {
+       button?.addEventListener('click', toggleMeny);
+    });
+ }
+
+ /*Toggle klasserna- Visar menyn i en dropdown */
+function toggleMeny() {
+    let toggleMenu = document.querySelector('#navbarToggleExternalContent9');
+    toggleMenu.classList.toggle('show');
+    document.body.classList.toggle('show-menu');
+ }
+
+ /*Funktion för menyknappen*/
+function menyItems() {
+    let menyItems = document.querySelectorAll('.mobile-menu li a');
+ 
+    menyItems.forEach(function (menyItem) {
+       menyItem.addEventListener('click', function (event) {
+          menyItems.forEach(function (item) {
+             item.classList.remove('active');
+          });
+          menyItem.classList.add('active');
+          toggleMeny();
+       });
+    });
+ }
+
+ // Hämta alla meny-länkar för att se den aktiva sidan
+function activeMeny() {
+    let url = window.location.href;
+    let menuLinks = document.querySelectorAll('.menu-link');
+    menuLinks.forEach(function (link) {
+       if (link.href === url) {
+          link.classList.add('active');
+       }
+    });
+ }
+
+ //TODO!! Varför får jag inte in datumet.
+ function updateDatum() {
+    let dagensDatum = new Date();
+    let dag = dagensDatum.getDate();
+    let månad = dagensDatum.getMonth() + 1; 
+    let år = dagensDatum.getFullYear(); 
+
+    // Formatera datumet som DD/MM/YYYY
+    let datumString = padZero(dag) + "/" + padZero(månad) + "/" + år;
+
+    // Uppdatera innehållet i datumelementet
+    document.getElementById("info_datum").innerText = datumString;
+  }
+
+  // Funktion för att lägga till en nolla framför en siffra om den är mindre än 10
+  function padZero(num) {
+    return num < 10 ? "0" + num : num;
+  }
+  updateDatum();
+
 

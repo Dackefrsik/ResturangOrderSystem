@@ -146,7 +146,6 @@ placeOrderRef.addEventListener("click", () => {
     let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
     modalBodyRefOrders.innerHTML = "";
     modalBodyRef.innerHTML = "";
-
     
     let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, countPrice());
     
@@ -157,7 +156,7 @@ placeOrderRef.addEventListener("click", () => {
         orders.forEach(order => {
             modalBodyRef.classList.remove("text-danger", "fs-3");
             let divRef = document.createElement("div");
-            divRef.classList.add("d-flex", "justify-content-between");
+            divRef.classList.add("d-flex", "justify-content-between", "border", "p-2", "m-1", "rounded-2");
             
             let innerDivRef = document.createElement("div");
             innerDivRef.classList.add("w-100");
@@ -198,9 +197,6 @@ placeOrderRef.addEventListener("click", () => {
                 }
 
             })
-
-            
-
             
             divRef.appendChild(innerDivRef);
             let divPrice = document.createElement("div");
@@ -568,35 +564,46 @@ function updateDatum() {
 let kvittoKnappRef = document.querySelector("#kvittoKnapp");
 
 kvittoKnappRef.addEventListener("click", () => {
-    console.log("kvitto");
     let allaKvittonBody = document.querySelector(".modal-body-allaKvitton");
     allaKvittonBody.innerHTML = "";
 
     kvitton.forEach(kvitto => {
 
         let divRef = document.createElement("div");
+        divRef.classList.add("border", "p-2", "m-1", "rounded-2", "d-flex", "justify-content-between");
+        let innerDiv = document.createElement("div");
+        let innerDiv2 = document.createElement("div");
+        innerDiv2.classList.add("d-flex", "align-items-end");
         let h5Ref = document.createElement("h5");
         h5Ref.textContent = "Kvittonummer: " + kvitto.kvittoNummer;
         let pRef = document.createElement("p");
         pRef.textContent = kvitto.orderNumber;
 
-        divRef.appendChild(h5Ref);
-        divRef.appendChild(pRef);
+        innerDiv.appendChild(h5Ref);
+        innerDiv.appendChild(pRef);
+
+        let btnRef = document.createElement("button");
+        btnRef.classList.add("btn", "btn-success");
+        btnRef.innerText = "Visa kvitto";
+        btnRef.addEventListener("click", () =>{
+            createkvitto(kvitto);
+        }) 
+        innerDiv2.appendChild(btnRef);
+        divRef.appendChild(innerDiv);
+        divRef.appendChild(innerDiv2);
 
         divRef.setAttribute("data-bs-toggle", "modal");
         divRef.setAttribute("data-bs-target", "#kvittoModal");
         divRef.setAttribute("data-order", kvitto.kvittoNummer);
         allaKvittonBody.appendChild(divRef);
-        divRef.addEventListener("click", (event) =>{
-            createkvitto(kvitto);
-        }) 
+        
     });
     
 })
 
 //#endregion 
 
-//#region
+//#region För att skapa kvitton
 function createkvitto(Kvitto){
     let modalBodyKvittonRef = document.querySelector(".modal-body-kvitto");
 

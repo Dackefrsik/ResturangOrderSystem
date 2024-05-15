@@ -48,9 +48,7 @@ left: 0;
 z-index: 999;
 ;
 }
-#navbarMenu *{
-  background: white;
-}
+
 #navbarMenu .mobile-menu li a {
 outline: none;
 color: black;
@@ -58,6 +56,7 @@ text-decoration: none;
 padding: 0.2em;
 display: block;
 width: 100%;
+border: 2px solid transparent;
 }
 
 #navbarMenu .mobile-menu li a:hover {

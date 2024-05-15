@@ -195,24 +195,38 @@ placeOrderRef.addEventListener("click", () => {
 
 function showOrder(modalBodyRef){
     if(productsCurrentOrder.length > 0){
+        
+        let inDiv = document.createElement("div");
         let divRef = document.createElement("div");
         placeOrderRef.classList.remove("d-none");
-        productsCurrentOrder.forEach(products => {
+        productsCurrentOrder.forEach((products, index) => {
             let innerDivRef = document.createElement("div");    
-            
+            let inputDiv = document.createElement("div");
+            let inputRef =  document.createElement("input");
+            inputRef.classList.add("w-100", "form-control", "fs-5");
+            inputRef.setAttribute("type", "text");
+            inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+
             innerDivRef.classList.add("d-flex", "justify-content-between", "fs-5");
             let pRef = document.createElement("p");
             pRef.textContent = products;
             pRef.classList.add("mt-2");
+            innerDivRef.appendChild(pRef);
+            let pRef2 = document.createElement("p");
+            pRef2.classList.add("mt-2");
+            pRef2.textContent = priceCurrentOrder[index] + "kr";
+            innerDivRef.appendChild(pRef2);
+            
             let buttonRef = document.createElement("button");
             buttonRef.setAttribute("data-name", products);
             buttonRef.innerHTML = "Ta bort";
             buttonRef.classList.add("btn", "btn-danger");
             buttonRef.style.margin = "0.25rem";
             buttonRef.addEventListener("click", (event) => {
-                
                 innerDivRef.removeChild(buttonRef);
                 innerDivRef.removeChild(pRef);
+                innerDivRef.removeChild(pRef2);
+                inputDiv.firstChild.remove();
                 let productName = event.target.getAttribute("data-name");
                 let index = productsCurrentOrder.indexOf(productName);
                 if(index !== -1){
@@ -238,19 +252,14 @@ function showOrder(modalBodyRef){
                 }
                 buttonOrder();
             })
-
-            let inputDiv = document.createElement("div");
             
-            let inputRef = document.createElement("input");
-            inputRef.classList.add("w-100", "form-control", "fs-5");
-            inputRef.setAttribute("type", "text");
-            inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+            
 
-            innerDivRef.appendChild(pRef);
             innerDivRef.appendChild(buttonRef);
             inputDiv.appendChild(inputRef);
-            divRef.appendChild(innerDivRef);
-            divRef.appendChild(inputDiv);
+            inDiv.appendChild(innerDivRef);
+            inDiv.appendChild(inputDiv);
+            divRef.appendChild(inDiv);
         })
 
         let textArea = document.createElement("textarea");

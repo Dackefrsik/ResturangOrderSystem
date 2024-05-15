@@ -215,13 +215,31 @@ function showOrder(modalBodyRef){
                 }
                 buttonOrder();
             })
+
+            let inputDiv = document.createElement("div");
+            
+            let inputRef = document.createElement("input");
+            inputRef.classList.add("w-100", "form-control");
+            inputRef.setAttribute("type", "text");
+            inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+
             innerDivRef.appendChild(pRef);
             innerDivRef.appendChild(buttonRef);
+            inputDiv.appendChild(inputRef);
             divRef.appendChild(innerDivRef);
+            divRef.appendChild(inputDiv);
         })
+
+        let textArea = document.createElement("textarea");
+        textArea.classList.add("form-control")
+        textArea.setAttribute("rows", "4");
+        textArea.setAttribute("cols", "10");
+        textArea.style.resize = "none";
+        textArea.setAttribute("placeholder", "Övrig information");
         
+
         let diveTotalSumma = document.createElement("div");
-        diveTotalSumma.classList.add("d-flex", "justify-content-between");
+        diveTotalSumma.classList.add("d-flex", "justify-content-between", "flex-wrap", "mt-2");
         let pRef = document.createElement("p");
         pRef.setAttribute("id", "TotalsummaOrder");
         let pRef2 = document.createElement("p");
@@ -232,7 +250,8 @@ function showOrder(modalBodyRef){
             totalprice += parseInt(price); 
         }); 
         pricelable = totalprice;
-        pRef2.textContent = pricelable + " kr"; 
+        pRef2.textContent = pricelable + " kr";
+        diveTotalSumma.appendChild(textArea);
         diveTotalSumma.appendChild(pRef);
         diveTotalSumma.appendChild(pRef2);
         modalBodyRef.appendChild(divRef); 

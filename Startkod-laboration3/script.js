@@ -27,168 +27,18 @@ class Order {
     }
 }
 
-//hej
+
 
 // #endregion
 
+
+
 // #region skirver ut alla produktyer vid load
 window.addEventListener("load", () => {
-
-    var menu = {
-        "pizza_class_1": [
-            {"name": "Margherita", "contents": ["Tomatsås", "Ost"], "price": 65 },
-            {"name": "Vesuvio", "contents": ["Tomatsås", "Ost", "Skinka"], "price": 65 },
-            {"name": "Altono", "contents": ["Tomatsås", "Ost", "Tonfisk"], "price": 65 }
-        ],
-        "pizza_class_2": [
-            {"name": "Calzone", "contents": ["Tomatsås", "Ost", "Skinka"], "price": 80 },
-            {"name": "Capricciosa", "contents": ["Tomatsås", "Ost", "Skinka", "Champinjoner" ], "price": 70 },
-            {"name": "Tomaso", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor" ], "price": 70 },
-            {"name": "Hawaii", "contents": ["Tomatsås", "Ost", "Skinka", "Ananas" ], "price": 70 },
-            {"name": "Oriental", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs" ], "price": 70 },
-            {"name": "Venezia", "contents": ["Tomatsås", "Ost", "Skinka", "Tonfisk" ], "price": 70 },
-            {"name": "Bolognese", "contents": ["Tomatsås", "Ost", "Köttfärs", "Lök" ], "price": 70 },
-            {"name": "Napoli", "contents": ["Tomatsås", "Ost", "Räkor", "Champinjoner" ], "price": 70 }
-        ],
-        "pizza_class_3": [
-            {"name": "Bravo", "contents": ["Tomatsås", "Ost", "Skinka", "Bacon", "Lök", "a:Ägg" ], "price": 75 },
-            {"name": "Princessa", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Champinjoner" ], "price": 75 },
-            {"name": "Kroppkärr", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs", "Champinjoner" ], "price": 75 },
-            {"name": "Afrikano", "contents": ["Tomatsås", "Ost", "Skinka", "Ananas", "Curry", "Banan" ], "price": 75 },
-            {"name": "Önska", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Champinjoner" ], "price": 85 },
-            {"name": "Lambada", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs", "a:Räkor" ], "price": 75 },
-            {"name": "Alsterdalen", "contents": ["Tomatsås", "Ost", "Skinka", "a:Crabfish", "a:Räkor" ], "price": 75 },
-            {"name": "Paradis", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Ananas" ], "price": 75 },
-            {"name": "Roma", "contents": ["Tomatsås", "Ost", "Skinka", "Kantareller", "Tomater (färska)" ], "price": 75 },
-            {"name": "Banjogatan", "contents": ["Tomatsås", "Ost", "Skinka", "Salami", "Paprika" ], "price": 75 },
-            {"name": "Rimini", "contents": ["Tomatsås", "Ost", "Köttfärs", "Gorgonzolaost", "Lök" ], "price": 75 },
-            {"name": "Opera", "contents": ["Tomatsås", "Ost", "Köttfärs", "Ananas", "Curry", "Banan" ], "price": 75 },
-            {"name": "Mesopotamia", "contents": ["Tomatsås", "Ost", "Salami", "Köttfärs", "a:Nötter"], "price": 75 }
-        ],
-        "sauces": [
-            {"name": "Bearnaisesås 10 cl ", "price":  10 },
-            {"name": "Kebabsås mild 10 cl ", "price":  10 },
-            {"name": "Kebabsås stark 10 cl ", "price":  10 },
-            {"name": "Kebabsås blandad 10 cl ", "price":  10 },
-            {"name": "Tzatzikisås 10 cl ", "price":  10 },
-            {"name": "Vitlökssås 10 cl ", "price": 10}
-        ],
-        "drinks": [
-            {"name": "Coca-Cola 33 cl ", "price":  15 },
-            {"name": "Coca-Cola light 33 cl ", "price":  15 },
-            {"name": "Fanta 33 cl ", "price":  15  },
-            {"name": "Sprite 33 cl ", "price":  15 },
-            {"name": "Mineralvatten 33 cl ", "price":  15 },
-            {"name": "Lättöl 33 cl ", "price":  15 },
-            {"name": "Coca-Cola 50 cl ", "price":  20 },
-            {"name": "Fanta 50 cl ", "price":  20 }
-        ]
-    }
+    
     createMenu();
-
-    //Pizzor klass 1
-    function createPizzaCard(item){
-        //kolumn som håller kort
-        let col = document.createElement("div");
-        col.classList.add("col-12", "col-md-6", "col-xl-4", "col-xxl-3", "mb-2", "px-0", "px-md-2");
-        
-        //kort-div
-        let card = document.createElement("div");
-        card.classList.add("card", "h-100");
-
-        //kort-inner-div som gör en row
-        let cardInner = document.createElement("div");
-        cardInner.classList.add("row", "no-gutters",  "mx-0", "h-100");
-
-        //kort-body
-        let cardBody = document.createElement("div");
-        cardBody.classList.add("d-flex", "flex-column", "justify-content-between", "card-body","col-7");
-
-        //kort-text
-        let h5 = document.createElement("h5");
-        h5.classList.add("card-title");
-        h5.textContent = item.name;
-        let h6 = document.createElement("h6");
-        h6.classList.add("card-subtitle");
-        h6.textContent = `${item.price}kr`;
-
-        cardBody.appendChild(h5);
-        cardBody.appendChild(h6);
-
-        //ingredienser
-        if(item.contents != null){
-        let p2 = document.createElement("p");
-        p2.classList.add("card-text", "text-muted");
-        let newContentArray = [];
-        //byter ut a: mot strong
-        item.contents.forEach(content => {
-            if(content.includes("a:")){
-                content = content.replace(content, "<strong>" + content.replace("a:", "") + "</strong>");
-            }
-            newContentArray.push(content);
-        });
-        p2.innerHTML = `${newContentArray.join(", ")}`;
-
-        cardBody.appendChild(p2);
-        }   
-
-        //knapp
-        let btn = document.createElement("button");
-        btn.classList.add("btn", "btn-success");
-        btn.textContent = "Lägg till";
-        btn.setAttribute("data-name", item.name);
-        btn.setAttribute("data-price", item.price);
-        let buttonDiv = document.createElement("div");
-        buttonDiv.classList.add("col-5", "d-flex", "align-items-end", "justify-content-end", "p-3");
-
-        //appendar allt
-        buttonDiv.appendChild(btn);
-        
-        addEventListenerTobutton(btn);
-
-        cardInner.appendChild(cardBody);
-        cardInner.appendChild(buttonDiv);
-        card.appendChild(cardInner);
-        col.appendChild(card);
-
-        return col;
-    }
-    function createMenu(){
-        let class1_row = document.querySelector("#class_1");
-        let pizza_class_1Ref = menu["pizza_class_1"];
-        pizza_class_1Ref.forEach(pizza => {
-            let col = createPizzaCard(pizza);
-            class1_row.appendChild(col);
-        });
-        let class2_row = document.querySelector("#class_2");
-        let pizza_class_2Ref = menu["pizza_class_2"];
-        pizza_class_2Ref.forEach(pizza => {
-            let col = createPizzaCard(pizza);
-            class2_row.appendChild(col);
-        });
-
-        let class3_row = document.querySelector("#class_3");
-        let pizza_class_3Ref = menu["pizza_class_3"];
-        pizza_class_3Ref.forEach(pizza => {
-            let col = createPizzaCard(pizza);
-            class3_row.appendChild(col);
-        });
-
-        let sauces_row = document.querySelector("#soser");
-        let saucesRef = menu["sauces"];
-        saucesRef.forEach(sauce => {
-            let col = createPizzaCard(sauce);
-            sauces_row.appendChild(col);
-        });
-
-        let drinks_row = document.querySelector("#drycker");
-        let drinksRef = menu["drinks"];
-        drinksRef.forEach(drink => {
-            let col = createPizzaCard(drink);
-            drinks_row.appendChild(col);
-        });
-
-    }
+    
+    
 
     // #region timer i menyraden
     let info_timerRef = document.querySelector("#info_timer");
@@ -423,4 +273,167 @@ function buttonOrder(){
     }
 }
 
+// #endregion
+
+// #region skapar kort för varje produkt
+function createPizzaCard(item){
+    //kolumn som håller kort
+    let col = document.createElement("div");
+    col.classList.add("col-12", "col-md-6", "col-xl-4", "col-xxl-3", "mb-2", "px-0", "px-md-2");
+    
+    //kort-div
+    let card = document.createElement("div");
+    card.classList.add("card", "h-100");
+
+    //kort-inner-div som gör en row
+    let cardInner = document.createElement("div");
+    cardInner.classList.add("row", "no-gutters",  "mx-0", "h-100");
+
+    //kort-body
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("d-flex", "flex-column", "justify-content-between", "card-body","col-7");
+
+    //kort-text
+    let h5 = document.createElement("h5");
+    h5.classList.add("card-title");
+    h5.textContent = item.name;
+    let h6 = document.createElement("h6");
+    h6.classList.add("card-subtitle");
+    h6.textContent = `${item.price}kr`;
+
+    cardBody.appendChild(h5);
+    cardBody.appendChild(h6);
+
+    //ingredienser
+    if(item.contents != null){
+    let p2 = document.createElement("p");
+    p2.classList.add("card-text", "text-muted");
+    let newContentArray = [];
+    //byter ut a: mot strong
+    item.contents.forEach(content => {
+        if(content.includes("a:")){
+            content = content.replace(content, "<strong>" + content.replace("a:", "") + "</strong>");
+        }
+        newContentArray.push(content);
+    });
+    p2.innerHTML = `${newContentArray.join(", ")}`;
+
+    cardBody.appendChild(p2);
+    }   
+
+    //knapp
+    let btn = document.createElement("button");
+    btn.classList.add("btn", "btn-success");
+    btn.textContent = "Lägg till";
+    btn.setAttribute("data-name", item.name);
+    btn.setAttribute("data-price", item.price);
+    let buttonDiv = document.createElement("div");
+    buttonDiv.classList.add("col-5", "d-flex", "align-items-end", "justify-content-end", "p-3");
+
+    //appendar allt
+    buttonDiv.appendChild(btn);
+    
+    addEventListenerTobutton(btn);
+
+    cardInner.appendChild(cardBody);
+    cardInner.appendChild(buttonDiv);
+    card.appendChild(cardInner);
+    col.appendChild(card);
+
+    return col;
+}
+// #endregion
+
+// #region skapar menyn
+
+function createMenu(){
+    let class1_row = document.querySelector("#class_1");
+    let pizza_class_1Ref = menu["pizza_class_1"];
+    pizza_class_1Ref.forEach(pizza => {
+        let col = createPizzaCard(pizza);
+        class1_row.appendChild(col);
+    });
+    let class2_row = document.querySelector("#class_2");
+    let pizza_class_2Ref = menu["pizza_class_2"];
+    pizza_class_2Ref.forEach(pizza => {
+        let col = createPizzaCard(pizza);
+        class2_row.appendChild(col);
+    });
+
+    let class3_row = document.querySelector("#class_3");
+    let pizza_class_3Ref = menu["pizza_class_3"];
+    pizza_class_3Ref.forEach(pizza => {
+        let col = createPizzaCard(pizza);
+        class3_row.appendChild(col);
+    });
+
+    let sauces_row = document.querySelector("#soser");
+    let saucesRef = menu["sauces"];
+    saucesRef.forEach(sauce => {
+        let col = createPizzaCard(sauce);
+        sauces_row.appendChild(col);
+    });
+
+    let drinks_row = document.querySelector("#drycker");
+    let drinksRef = menu["drinks"];
+    drinksRef.forEach(drink => {
+        let col = createPizzaCard(drink);
+        drinks_row.appendChild(col);
+    });
+
+}
+// #endregion
+
+
+// #region skapar menyn
+var menu = {
+    "pizza_class_1": [
+        {"name": "Margherita", "contents": ["Tomatsås", "Ost"], "price": 65 },
+        {"name": "Vesuvio", "contents": ["Tomatsås", "Ost", "Skinka"], "price": 65 },
+        {"name": "Altono", "contents": ["Tomatsås", "Ost", "Tonfisk"], "price": 65 }
+    ],
+    "pizza_class_2": [
+        {"name": "Calzone", "contents": ["Tomatsås", "Ost", "Skinka"], "price": 80 },
+        {"name": "Capricciosa", "contents": ["Tomatsås", "Ost", "Skinka", "Champinjoner" ], "price": 70 },
+        {"name": "Tomaso", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor" ], "price": 70 },
+        {"name": "Hawaii", "contents": ["Tomatsås", "Ost", "Skinka", "Ananas" ], "price": 70 },
+        {"name": "Oriental", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs" ], "price": 70 },
+        {"name": "Venezia", "contents": ["Tomatsås", "Ost", "Skinka", "Tonfisk" ], "price": 70 },
+        {"name": "Bolognese", "contents": ["Tomatsås", "Ost", "Köttfärs", "Lök" ], "price": 70 },
+        {"name": "Napoli", "contents": ["Tomatsås", "Ost", "Räkor", "Champinjoner" ], "price": 70 }
+    ],
+    "pizza_class_3": [
+        {"name": "Bravo", "contents": ["Tomatsås", "Ost", "Skinka", "Bacon", "Lök", "a:Ägg" ], "price": 75 },
+        {"name": "Princessa", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Champinjoner" ], "price": 75 },
+        {"name": "Kroppkärr", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs", "Champinjoner" ], "price": 75 },
+        {"name": "Afrikano", "contents": ["Tomatsås", "Ost", "Skinka", "Ananas", "Curry", "Banan" ], "price": 75 },
+        {"name": "Önska", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Champinjoner" ], "price": 85 },
+        {"name": "Lambada", "contents": ["Tomatsås", "Ost", "Skinka", "Köttfärs", "a:Räkor" ], "price": 75 },
+        {"name": "Alsterdalen", "contents": ["Tomatsås", "Ost", "Skinka", "a:Crabfish", "a:Räkor" ], "price": 75 },
+        {"name": "Paradis", "contents": ["Tomatsås", "Ost", "Skinka", "a:Räkor", "Ananas" ], "price": 75 },
+        {"name": "Roma", "contents": ["Tomatsås", "Ost", "Skinka", "Kantareller", "Tomater (färska)" ], "price": 75 },
+        {"name": "Banjogatan", "contents": ["Tomatsås", "Ost", "Skinka", "Salami", "Paprika" ], "price": 75 },
+        {"name": "Rimini", "contents": ["Tomatsås", "Ost", "Köttfärs", "Gorgonzolaost", "Lök" ], "price": 75 },
+        {"name": "Opera", "contents": ["Tomatsås", "Ost", "Köttfärs", "Ananas", "Curry", "Banan" ], "price": 75 },
+        {"name": "Mesopotamia", "contents": ["Tomatsås", "Ost", "Salami", "Köttfärs", "a:Nötter"], "price": 75 }
+    ],
+    "sauces": [
+        {"name": "Bearnaisesås 10 cl ", "price":  10 },
+        {"name": "Kebabsås mild 10 cl ", "price":  10 },
+        {"name": "Kebabsås stark 10 cl ", "price":  10 },
+        {"name": "Kebabsås blandad 10 cl ", "price":  10 },
+        {"name": "Tzatzikisås 10 cl ", "price":  10 },
+        {"name": "Vitlökssås 10 cl ", "price": 10}
+    ],
+    "drinks": [
+        {"name": "Coca-Cola 33 cl ", "price":  15 },
+        {"name": "Coca-Cola light 33 cl ", "price":  15 },
+        {"name": "Fanta 33 cl ", "price":  15  },
+        {"name": "Sprite 33 cl ", "price":  15 },
+        {"name": "Mineralvatten 33 cl ", "price":  15 },
+        {"name": "Lättöl 33 cl ", "price":  15 },
+        {"name": "Coca-Cola 50 cl ", "price":  20 },
+        {"name": "Fanta 50 cl ", "price":  20 }
+    ]
+}
 // #endregion

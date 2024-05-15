@@ -28,10 +28,7 @@ class Order {
 }
 
 
-
 // #endregion
-
-
 
 // #region skirver ut alla produktyer vid load
 window.addEventListener("load", () => {
@@ -125,6 +122,7 @@ placeOrderRef.addEventListener("click", () => {
 
     orders.push(newOrder);
     productsCurrentOrder = [];
+    priceCurrentOrder = [];
 
     if(orders.length > 0){
         orders.forEach(order => {
@@ -383,7 +381,6 @@ function createMenu(){
 
 }
 // #endregion
-
 
 // #region skapar menyn
 var menu = {

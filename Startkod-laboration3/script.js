@@ -23,8 +23,17 @@ class Order {
     constructor(orderNumber, table, products){
         this.orderNumber = orderNumber,
         this.table = table,
-        this.products = products
+        this.products = products,
+        this.sum = () => {
+            let sum = 0;
+            this.products.forEach(product => {
+                sum += product.price;
+            });
+            return sum;
+        }
+
     }
+
 }
 
 

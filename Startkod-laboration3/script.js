@@ -24,7 +24,7 @@ class Order {
         this.orderNumber = orderNumber,
         this.table = table,
         this.products = products,
-        this.sum = () => {
+        this.sum = function(){
             let sum = 0;
             this.products.forEach(product => {
                 sum += product.price;
@@ -34,6 +34,12 @@ class Order {
 
     }
 
+}
+class Product{
+    constructor(name, price){
+        this.name = name,
+        this.price = parseInt(price)
+    }
 }
 
 
@@ -140,7 +146,7 @@ placeOrderRef.addEventListener("click", () => {
             let innerDivRef = document.createElement("div");
             let h3Ref = document.createElement("h3");
             let tableRef = document.createElement("h6");
-        
+            console.log(order);
             h3Ref.innerHTML = order.orderNumber;
             tableRef.innerHTML = "table" + order.table;
 

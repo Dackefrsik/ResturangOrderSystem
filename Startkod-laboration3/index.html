@@ -41,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarMenu">
                 <ul class="mobile-menu list-group mt-2">
                     <li class="list-group-item"><a data-bs-toggle="modal" data-bs-target="#LaggdaModal" href=""  class="menu-link">Beställningar</a></li>
-                    <li class="list-group-item"><a href="" class="menu-link">Kvitton</a></li>
+                    <li class="list-group-item" id="kvittoKnapp" ><a href="" class="menu-link" data-bs-toggle="modal" data-bs-target="#allaKvittoModal">Kvitton</a></li>
                 </ul>
               </div>
             </div>
@@ -144,7 +144,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Stäng</button>
-                        <button type="button" class="btn btn-primary d-none" id="placeOrder">Lägg beställning</button>
+                        <button type="button" class="btn btn-primary d-none" id="placeOrder" data-bs-toggle="modal" data-bs-target="#kvittoModal">Lägg beställning</button>
                     </div>
                 </div>
             </div>
@@ -169,6 +169,45 @@
             </div>
         </div>
         <!-- #endregion -->
+
+        <!-- #region Modal för kvitto beställningar -->
+        <div class="modal fade" id="kvittoModal" tabindex="-1" aria-labelledby="KvittoModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary">
+                        <h1 class="modal-title fs-5 text-white">Kvitto</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body-kvitto m-3">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" id="closeReceipt">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->
+
+         <!-- #region Modal för alla kvitton -->
+         <div class="modal fade" id="allaKvittoModal" tabindex="-1" aria-labelledby="allaKvittoModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary">
+                        <h1 class="modal-title fs-5 text-white">Kvitto</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body-allaKvitton m-3">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" id="closeReceipt">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion -->
+
     </main>
 
 

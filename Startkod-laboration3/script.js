@@ -13,7 +13,7 @@ window.oGlobalObject = {
 let orders = [];
 let productsCurrentOrder = [];
 let priceCurrentOrder = [];
-
+let tables = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 
 // #endregion
 
@@ -70,13 +70,19 @@ window.addEventListener("load", () => {
 // #region Funktion för att addera lyssnre till knappen vid varje produkt
 function addEventListenerTobutton(btnRef){
     let h3Ref = "";
-    let inputRef = "";
-    inputRef = document.createElement("input");
-    inputRef.setAttribute("type", "number");
-    inputRef.setAttribute("id", "NumberTable");
-    inputRef.setAttribute("min", 1);
-    inputRef.setAttribute("max", 16);
-    inputRef.setAttribute("value", 1);
+    let selcetRef = document.createElement("select");
+    selcetRef.classList.add("form-control", "mb-1", "fs-5");
+    selcetRef.setAttribute("id", "slectTable")
+    
+    tables.forEach(table => {
+        let optionRef = document.createElement("option");
+        optionRef.innerHTML = (table + 1);
+        optionRef.classList.add("fs-5");
+        selcetRef.appendChild(optionRef);
+    })
+    
+
+
     btnRef.addEventListener("click", () => {
         productsCurrentOrder.push(btnRef.getAttribute("data-name"));
         priceCurrentOrder.push(btnRef.getAttribute("data-price"));
@@ -91,10 +97,11 @@ function addEventListenerTobutton(btnRef){
             modalBodyRef.appendChild(h3Ref);
             let labelRef = document.createElement("label");
             labelRef.innerHTML = "Bord"
-            labelRef.setAttribute("for", "#NumberTable");
+            labelRef.setAttribute("for", "#selectTable");
+            labelRef.classList.add("fs-3");
             modalBodyRef.appendChild(labelRef);
             
-            modalBodyRef.appendChild(inputRef);
+            modalBodyRef.appendChild(selcetRef);
             showOrder(modalBodyRef);
             
         }
@@ -178,9 +185,10 @@ function showOrder(modalBodyRef){
         productsCurrentOrder.forEach(products => {
             let innerDivRef = document.createElement("div");    
             
-            innerDivRef.classList.add("d-flex", "justify-content-between");
+            innerDivRef.classList.add("d-flex", "justify-content-between", "fs-5");
             let pRef = document.createElement("p");
             pRef.textContent = products;
+            pRef.classList.add("mt-2");
             let buttonRef = document.createElement("button");
             buttonRef.setAttribute("data-name", products);
             buttonRef.innerHTML = "Ta bort";
@@ -219,7 +227,7 @@ function showOrder(modalBodyRef){
             let inputDiv = document.createElement("div");
             
             let inputRef = document.createElement("input");
-            inputRef.classList.add("w-100", "form-control");
+            inputRef.classList.add("w-100", "form-control", "fs-5");
             inputRef.setAttribute("type", "text");
             inputRef.setAttribute("placeholder", "Ändring av ingredienser");
 
@@ -231,7 +239,7 @@ function showOrder(modalBodyRef){
         })
 
         let textArea = document.createElement("textarea");
-        textArea.classList.add("form-control")
+        textArea.classList.add("form-control", "fs-5")
         textArea.setAttribute("rows", "4");
         textArea.setAttribute("cols", "10");
         textArea.style.resize = "none";
@@ -242,7 +250,9 @@ function showOrder(modalBodyRef){
         diveTotalSumma.classList.add("d-flex", "justify-content-between", "flex-wrap", "mt-2");
         let pRef = document.createElement("p");
         pRef.setAttribute("id", "TotalsummaOrder");
+        pRef.classList.add("fs-5");
         let pRef2 = document.createElement("p");
+        pRef2.classList.add("fs-5");
         pRef.textContent = "Totalsumma:";
         let pricelable = " "; 
         let totalprice = 0;

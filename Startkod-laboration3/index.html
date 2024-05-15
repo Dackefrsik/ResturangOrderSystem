@@ -11,10 +11,41 @@
 </head>
 
 <body>
-    <header>
-        <nav class=" bg-dark d-flex justify-content-center p-3 gap-3">
-            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#LaggdaModal">Bställningar</button>
-            <h6 class="text-white pt-2" id="info_timer">00:00</h6>
+    <header class="sticky-top">
+        <nav class="navbar bg-white p-2 w-100 ">
+            <!--Skulle vilja ha den översta bg-warning och den undre raden helvit bg-light-->
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <a class="navbar-brand d-flex justify-content-center" href="#">
+                    <img src="/PizzaDelivery.jpg" class="loggaImg justify-content-center" alt="PizzaDelivery logga">
+                </a>
+                <div class="date-clock text-black p-2 bg-warning h-20 text-center rounded">
+                    <div>
+                        <!--Om jag vill lägga till en text--> <span id="info_datum">Datum</span>
+                    </div>
+                    <div>
+                        <!--Om jag vill lägga till en text--> <span id="info_timer">00:00</span>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="w-100">
+                <div class="w-100 d-flex justify-content-end">
+
+                    <button class="navbar-toggler bg-light btn-sm ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarMenu" aria-controls="navbarMenu"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="mobile-menu list-group">
+                    <li class="list-group-item active"><a href="/Startkod-laboration3/index.html" class="menu-link">STARTSIDA</a></li>
+                    <li class="list-group-item"><a data-bs-toggle="modal" data-bs-target="#NuvarandeModal" href=""  class="menu-link">BESTÄLLNINGAR</a></li>
+                    <li class="list-group-item"><a href="/Startkod-laboration3/orders.html" class="menu-link">BORD</a></li>
+                </ul>
+              </div>
+            </div>
         </nav>
     </header>
     <main>

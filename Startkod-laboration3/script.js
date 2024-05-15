@@ -38,7 +38,7 @@ window.addEventListener("load", () => {
     
     createMenu();
     
-    
+    updateDatum();
 
     // #region timer i menyraden
     let info_timerRef = document.querySelector("#info_timer");
@@ -437,3 +437,24 @@ var menu = {
     ]
 }
 // #endregion
+
+//#region uppdatera datum
+function updateDatum() {
+    let dagensDatum = new Date();
+    let dag = dagensDatum.getDate();
+    let månad = dagensDatum.getMonth() + 1; 
+    let år = dagensDatum.getFullYear(); 
+
+    // Formatera datumet som DD/MM/YYYY
+    let datumString = padZero(dag) + "/" + padZero(månad) + "/" + år;
+
+    // Uppdatera innehållet i datumelementet
+    document.getElementById("info_datum").innerText = datumString;
+  }
+
+  // Funktion för att lägga till en nolla framför en siffra om den är mindre än 10
+  function padZero(num) {
+    return num < 10 ? "0" + num : num;
+  }
+
+//#endregion

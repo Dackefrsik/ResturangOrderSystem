@@ -31,10 +31,11 @@ let kvitton = [];
 // #region Modal klassen för genomförd produkt
 
 class Order {
-    constructor(orderNumber, table, products, price, otherInformation){
+    constructor(orderNumber, table, products, pizzaInfo, price, otherInformation){
         this.orderNumber = orderNumber,
         this.table = table,
         this.products = products,
+        this.pizzaInfo = Array.isArray(pizzaInfo) ? pizzaInfo : [],
         this.price = price,
         this.otherInformation = otherInformation
 
@@ -153,10 +154,16 @@ placeOrderRef.addEventListener("click", () => {
     let otherInformation = document.querySelector("#otherInformation")
     
     let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
+    
+
+    console.log(modalBodyRefOrders.querySelectorAll("input[type='text']"));
+    let pizzaInfo = Array.from(modalBodyRefOrders.querySelectorAll("input")).map(input => input.value);
+
     modalBodyRefOrders.innerHTML = "";
     modalBodyRef.innerHTML = "";
+    console.log("piza", pizzaInfo);
     
-    let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, countPrice(), otherInformation.value);
+    let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, pizzaInfo , countPrice(), otherInformation.value);
     
     orders.push(newOrder);
     if(orders.length > 0){
@@ -177,10 +184,36 @@ placeOrderRef.addEventListener("click", () => {
             innerDivRef.appendChild(h3Ref);
             innerDivRef.appendChild(tableRef);
 
-            order.products.forEach(product => {
-                let pRef = document.createElement("p");
-                pRef.innerHTML = product;
-                innerDivRef.appendChild(pRef);
+            order.products.forEach((product, index) => {
+                let h6Ref = document.createElement("h6");
+                let pRef2 = document.createElement("p");
+                h6Ref.innerText = product;
+
+                innerDivRef.appendChild(h6Ref);
+                
+                let pizza_class_1Ref = menu["pizza_class_1"];
+                pizza_class_1Ref.forEach(pizza => {
+                    if(product == pizza.name){
+                        pRef2.innerText = order.pizzaInfo[index];
+                        innerDivRef.appendChild(pRef2);
+                    }
+                });
+
+                let pizza_class_2Ref = menu["pizza_class_2"];
+                pizza_class_2Ref.forEach(pizza => {
+                    if(product == pizza.name){
+                        pRef2.innerText = order.pizzaInfo[index];
+                        innerDivRef.appendChild(pRef2);
+                    }
+                });
+            
+                let pizza_class_3Ref = menu["pizza_class_3"];
+                pizza_class_3Ref.forEach(pizza => {
+                    if(product == pizza.name){
+                        pRef2.innerText = order.pizzaInfo[index];
+                        innerDivRef.appendChild(pRef2);
+                    }
+                });
             })
 
             let otherHeader = document.createElement("H6");

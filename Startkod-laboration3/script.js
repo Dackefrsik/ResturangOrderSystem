@@ -247,7 +247,7 @@ placeOrderRef.addEventListener("click", () => {
 
 // #endregion
 
-// #region Kvitto
+// #region Tömmer modalbodyn i den som visar nya kvittot
 
 let closeReceiptRef = document.querySelector("#closeReceipt");
 closeReceiptRef.addEventListener("click", () => {

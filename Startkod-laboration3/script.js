@@ -270,9 +270,39 @@ function showOrder(modalBodyRef){
             let innerDivRef = document.createElement("div");    
             let inputDiv = document.createElement("div");
             let inputRef =  document.createElement("input");
-            inputRef.classList.add("w-100", "form-control", "fs-5");
-            inputRef.setAttribute("type", "text");
-            inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+            
+
+            let pizza_class_1Ref = menu["pizza_class_1"];
+            pizza_class_1Ref.forEach(pizza => {
+                if(products == pizza.name){
+                    inputRef.classList.add("w-100", "form-control", "fs-5");
+                    inputRef.setAttribute("type", "text");
+                    inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+                    inputDiv.appendChild(inputRef);
+                }
+            });
+
+            let pizza_class_2Ref = menu["pizza_class_2"];
+            pizza_class_2Ref.forEach(pizza => {
+                if(products == pizza.name){
+                    inputRef.classList.add("w-100", "form-control", "fs-5");
+                    inputRef.setAttribute("type", "text");
+                    inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+                    inputDiv.appendChild(inputRef);
+                }
+            });
+        
+            let pizza_class_3Ref = menu["pizza_class_3"];
+            pizza_class_3Ref.forEach(pizza => {
+                if(products == pizza.name){
+                    inputRef.classList.add("w-100", "form-control", "fs-5");
+                    inputRef.setAttribute("type", "text");
+                    inputRef.setAttribute("placeholder", "Ändring av ingredienser");
+                    inputDiv.appendChild(inputRef);
+                }
+            });
+            
+            
 
             innerDivRef.classList.add("d-flex", "justify-content-between", "fs-5");
             let pRef = document.createElement("p");
@@ -321,7 +351,7 @@ function showOrder(modalBodyRef){
             })
             
             innerDivRef.appendChild(buttonRef);
-            inputDiv.appendChild(inputRef);
+            
             inDiv.appendChild(innerDivRef);
             inDiv.appendChild(inputDiv);
             divRef.appendChild(inDiv);

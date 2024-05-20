@@ -7,7 +7,9 @@ Hannah Uhlán - 950901
 
 "use strict";
 
-// #region timer för klockan i menyn 
+// #region globalt objekt vör timer
+
+//Globalt objekt för att skapa en timer 
 window.oGlobalObject = {
     day : new Date().getDate(),
     month : new Date().getMonth(),
@@ -20,16 +22,26 @@ window.oGlobalObject = {
 
 // #region Modal för vektorer som sparar ordrar och produkter i den ordern som läggs
 
+//Vketor för att hålla koll på lagda beställningar
 let orders = [];
+
+//Vektor för att hålla koll på produkter i nuvarande beställning
 let productsCurrentOrder = [];
+
+//Vektor med priset för produkterna i nuvarande beställning
 let priceCurrentOrder = [];
+
+//De sexton borden
 let tables = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+//Vektor för att hålla koll på alla skapade kvitton
 let kvitton = [];
 
 // #endregion
 
 // #region Modal klassen för genomförd produkt
 
+//Klass för att skapa objekt för varje order
 class Order {
     constructor(orderNumber, table, products, pizzaInfo, price, otherInformation){
         this.orderNumber = orderNumber,
@@ -42,6 +54,8 @@ class Order {
     }
 
 }
+
+//Klass för att skapa objekt för varje kvitto
 class kvitto{
     constructor(kvittoNummer, day, month, year, hours, min , orderNumber, products, price, totalprice){
         this.kvittoNummer = kvittoNummer;
@@ -72,6 +86,7 @@ window.addEventListener("load", () => {
 
     info_timerRef.textContent = "";
 
+    //Skapar en timer utifrån det globala objektet
     setInterval(() =>{
         oGlobalObject.sec += 1;
         if(oGlobalObject.sec == 60){
@@ -99,11 +114,13 @@ window.addEventListener("load", () => {
 
 // #region Funktion för att addera lyssnre till knappen vid varje produkt
 function addEventListenerTobutton(btnRef){
+    
     let h3Ref = "";
     let selcetRef = document.createElement("select");
     selcetRef.classList.add("form-control", "mb-1", "fs-5");
     selcetRef.setAttribute("id", "selectTable")
     
+    //Ser till att rätt bord skrivs ut
     tables.forEach(table => {
         let optionRef = document.createElement("option");
         optionRef.innerHTML = (table + 1);
@@ -111,8 +128,7 @@ function addEventListenerTobutton(btnRef){
         selcetRef.appendChild(optionRef);
     })
     
-
-
+    //Lägger till en lyssnare så man kan addera produkterna till nuvarande beställning
     btnRef.addEventListener("click", () => {
         productsCurrentOrder.push(btnRef.getAttribute("data-name"));
         priceCurrentOrder.push(btnRef.getAttribute("data-price"));
@@ -121,21 +137,28 @@ function addEventListenerTobutton(btnRef){
         if(productsCurrentOrder.length > 0){
             countPrice();
             modalBodyRef.innerHTML = "";
+
+            //Skriver ut ordernummer
             h3Ref = document.createElement("h3");
             h3Ref.innerHTML = "Order: " + (orders.length + 1);
             h3Ref.setAttribute("id", "orderNumber")
             modalBodyRef.appendChild(h3Ref);
+            
+            //skriver ut select/ option för att välja bord
             let labelRef = document.createElement("label");
             labelRef.innerHTML = "Bord"
             labelRef.setAttribute("for", "#selectTable");
             labelRef.classList.add("fs-3");
             modalBodyRef.appendChild(labelRef);
-            
             modalBodyRef.appendChild(selcetRef);
+            
+            //Visar nuvarande beställning
             showOrder(modalBodyRef);
             
         }
         modalBodyRef.classList.remove("text-danger");
+
+        //Kollar om knappen längst ner i vyn ska gå att klicka på 
         buttonOrder();
     })   
 }
@@ -144,46 +167,57 @@ function addEventListenerTobutton(btnRef){
 
 // #region modal för att lägga en order och visa lagda ordrar 
 
+//adderar lyssnare till knappan som lägger en beställning 
 let placeOrderRef = document.querySelector("#placeOrder");
 placeOrderRef.addEventListener("click", () => {
+    
+    //Nollställer priset i vid knappen längst ner i fönstret
     let pRef = document.querySelector(".priceInfo");
     pRef.innerHTML = "0 kr";
+
+    //Hämtar ut all information om den lagda beställningen 
     let modalBodyRefOrders = document.querySelector(".modal-body-nuvarandeBeställning");
     let h3Ref = document.querySelector("#orderNumber");
     let select = document.querySelector("#selectTable");
     let otherInformation = document.querySelector("#otherInformation")
-    
-    let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
-    
-
-    console.log(modalBodyRefOrders.querySelectorAll("input[type='text']"));
     let pizzaInfo = Array.from(modalBodyRefOrders.querySelectorAll("input")).map(input => input.value);
 
+    //Nollställer modalen för nuvarande och laggda ordrar
+    let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
     modalBodyRefOrders.innerHTML = "";
     modalBodyRef.innerHTML = "";
-    console.log("piza", pizzaInfo);
     
+    //Skapar ett objekt av nuvarande order
     let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, pizzaInfo , countPrice(), otherInformation.value);
-    
     orders.push(newOrder);
+    
+    //Går igenom alla beställnignar och skriver ut dem
     if(orders.length > 0){
         console.log("order");
         orders.forEach(order => {
+
+            //Ser till att det inte blir rödmarkerad text vid de laggda beställningarna
             modalBodyRef.classList.remove("text-danger", "fs-3");
+
+            //Skapar upp layout för att visa de laggda beställningarna
             let divRef = document.createElement("div");
             divRef.classList.add("d-flex", "justify-content-between", "border", "p-2", "m-1", "rounded-2");
-            
             let innerDivRef = document.createElement("div");
             innerDivRef.classList.add("w-100");
+
+            //Skriver ut beställningsnumret 
             let h3Ref = document.createElement("h3");
-            let tableRef = document.createElement("h6");
-            console.log(order);
             h3Ref.innerHTML = order.orderNumber;
+
+            //Skriver ut boredet som beställningen ska till 
+            let tableRef = document.createElement("h6");
             tableRef.innerHTML = "Table " + order.table;
 
+            //Lägger till elementen 
             innerDivRef.appendChild(h3Ref);
             innerDivRef.appendChild(tableRef);
 
+            //Skriver ut varje produkt med dess information 
             order.products.forEach((product, index) => {
                 let h6Ref = document.createElement("h6");
                 let pRef2 = document.createElement("p");
@@ -216,18 +250,24 @@ placeOrderRef.addEventListener("click", () => {
                 });
             })
 
-            let otherHeader = document.createElement("H6");
-            otherHeader.innerHTML = "Övrigt:";
-            innerDivRef.appendChild(otherHeader);
-            let otherText = document.createElement("p");
-            otherText.innerText = order.otherInformation;
+            //Skriver ut eventuell övrig information
+            if(order.otherInformation !== ""){
+                let otherHeader = document.createElement("H6");
+                otherHeader.innerHTML = "Övrigt:";
+                innerDivRef.appendChild(otherHeader);
+                let otherText = document.createElement("p");
+                otherText.innerText = order.otherInformation;
+                otherText.classList.add("border", "rounded-2", "p-2");
+            }
             innerDivRef.appendChild(otherText);
 
+            //Knappen som gör att man kan ta bort beställningen
             let btnRef = document.createElement("button");
             btnRef.classList.add("btn", "btn-danger", "h-25", "d-flex", "align-items-end");
             btnRef.style.margin = "0.25rem";
             btnRef.innerHTML = "Ta bort";
 
+            //Adderar en lyssnare till knapparna vid varje beställning så det går att ta bort dem
             btnRef.addEventListener("click", () => {  
                 modalBodyRef.removeChild(divRef);
                 let index = orders.indexOf(order);
@@ -236,43 +276,50 @@ placeOrderRef.addEventListener("click", () => {
                     
                 }
 
+                //Skriver ut en text ifall det inte finns några beställningar
                 if(orders.length == 0){
                     modalBodyRef.innerHTML = "Finns inga ordrar!";
                     modalBodyRef.classList.add("text-danger", "fs-3");
                     let placeOrderRef = document.querySelector("#placeOrder");
                     placeOrderRef.classList.add("d-none");
-
                 }
 
             })
             
             divRef.appendChild(innerDivRef);
+
+            //Skriver ut totalsumman 
             let divPrice = document.createElement("div");
+            divPrice.classList.add("d-flex", "justify-content-between", "align-items-end");
             let pRef = document.createElement("p");
             let pRef2 = document.createElement("p");
             pRef.innerText = "Totalsumma: ";
             pRef2.innerText = newOrder.price + "kr";
             divPrice.appendChild(pRef);
             divPrice.appendChild(pRef2);
-            divPrice.appendChild(btnRef);
-            divPrice.classList.add("d-flex", "justify-content-between", "align-items-end");
 
+            //lägger till knappen
+            divPrice.appendChild(btnRef);
+
+            //Lägger till divarna
             innerDivRef.appendChild(divPrice);
             modalBodyRef.appendChild(divRef);
 
         });
     }
-    placeOrderRef.removeEventListener("click", null);
 
-    //Skapar ett kvitto
-
+    //Skapar ett objekt för det nya kvittot
     let newKvitto = new kvitto(kvitton.length + 1 ,oGlobalObject.day, oGlobalObject.month, oGlobalObject.year, oGlobalObject.hours, oGlobalObject.min, newOrder.orderNumber, newOrder.products, priceCurrentOrder, countPrice());
     kvitton.push(newKvitto);
 
+    //Skriver visar kvittot på skärmen 
     createkvitto(newKvitto);
+
+    //Tömmer produkterna och priset för dem i nuvarande beställning
     productsCurrentOrder = [];
     priceCurrentOrder = [];
 
+    //nollställer knappen längst ner i vyn 
     buttonOrder();
     countPrice();
     
@@ -294,17 +341,21 @@ closeReceiptRef.addEventListener("click", () => {
 // #region för att visa nuvarande beställning
 
 function showOrder(modalBodyRef){
+    //kollar om det finns produkter i en beställning att visa
     if(productsCurrentOrder.length > 0){
         
+        //bygger upp en layout för nuvarande beställningen
         let inDiv = document.createElement("div");
         let divRef = document.createElement("div");
         placeOrderRef.classList.remove("d-none");
         productsCurrentOrder.forEach((products, index) => {
             let innerDivRef = document.createElement("div");    
             let inputDiv = document.createElement("div");
+
+            //skapar inputelement för informatrion vid produkterna
             let inputRef =  document.createElement("input");
             
-
+            //Kollar om produkterna är en pizza och lägger till en ruta för att kunna skriva till information 
             let pizza_class_1Ref = menu["pizza_class_1"];
             pizza_class_1Ref.forEach(pizza => {
                 if(products == pizza.name){
@@ -335,23 +386,29 @@ function showOrder(modalBodyRef){
                 }
             });
             
-            
-
+            //Div för produkterna och deras pris            
             innerDivRef.classList.add("d-flex", "justify-content-between", "fs-5");
+            
+            //Namen för varje produkt
             let pRef = document.createElement("p");
             pRef.textContent = products;
             pRef.classList.add("mt-2");
             innerDivRef.appendChild(pRef);
+           
+            //Priset för varje produkt
             let pRef2 = document.createElement("p");
             pRef2.classList.add("mt-2");
             pRef2.textContent = priceCurrentOrder[index] + "kr";
             innerDivRef.appendChild(pRef2);
             
+            //Knappen för att kunna ta bort en produkt ur beställningen
             let buttonRef = document.createElement("button");
             buttonRef.setAttribute("data-name", products);
             buttonRef.innerHTML = "Ta bort";
             buttonRef.classList.add("btn", "btn-danger");
             buttonRef.style.margin = "0.25rem";
+        
+            //Lyssnare till knappen, skriver ut "Tom beställning" om det inte finns några produkter kvar
             buttonRef.addEventListener("click", (event) => {
                 innerDivRef.removeChild(buttonRef);
                 innerDivRef.removeChild(pRef);
@@ -359,10 +416,18 @@ function showOrder(modalBodyRef){
                 inputDiv.firstChild.remove();
                 let productName = event.target.getAttribute("data-name");
                 let index = productsCurrentOrder.indexOf(productName);
+                
+                //kollar index
                 if(index !== -1){
+
+                    //Justerar de båda vektorerna 
                     productsCurrentOrder.splice(index, 1);
                     priceCurrentOrder.splice(index, 1);
+
+                    //Justerar priset i knappen längst ner i vyn 
                     countPrice();
+
+                    //Kollar om beställningen är tom
                     if(productsCurrentOrder.length == 0){
                         modalBodyRef.innerHTML = "Tom beställning";
                         modalBodyRef.classList.add("text-danger");
@@ -371,6 +436,7 @@ function showOrder(modalBodyRef){
 
                     }
                     
+                    //Träknar ut priset som står i modalen 
                     let pricelable = " "; 
                     let totalprice = 0;
                     priceCurrentOrder.forEach(price => {
@@ -380,16 +446,19 @@ function showOrder(modalBodyRef){
                     pricelable = totalprice;
                     pRef2.textContent = pricelable + " kr"; 
                 }
+
+                //Kollar om knappen längst ner i vyn ska gå att klicka på
                 buttonOrder();
             })
             
+            //Lägger till de skapade elementen
             innerDivRef.appendChild(buttonRef);
-            
             inDiv.appendChild(innerDivRef);
             inDiv.appendChild(inputDiv);
             divRef.appendChild(inDiv);
         })
 
+        //Skriver ut en textruta för överig information gällande beställningen 
         let textArea = document.createElement("textarea");
         textArea.classList.add("form-control", "fs-5")
         textArea.setAttribute("rows", "4");
@@ -398,6 +467,7 @@ function showOrder(modalBodyRef){
         textArea.setAttribute("placeholder", "Övrig information");
         textArea.setAttribute("id", "otherInformation");
         
+        //Skriver ut tottalsumman för beställningen 
         let diveTotalSumma = document.createElement("div");
         diveTotalSumma.classList.add("d-flex", "justify-content-between", "flex-wrap", "mt-2");
         let pRef = document.createElement("p");
@@ -413,6 +483,8 @@ function showOrder(modalBodyRef){
         }); 
         pricelable = totalprice;
         pRef2.textContent = pricelable + " kr";
+        
+        //Adderar resterande element
         diveTotalSumma.appendChild(textArea);
         diveTotalSumma.appendChild(pRef);
         diveTotalSumma.appendChild(pRef2);
@@ -425,6 +497,7 @@ function showOrder(modalBodyRef){
 
 // #region räknar ut totalsumman för en beställning 
 
+//Funktionen räknar ut priset utifrån de som finns i vektorn
 function countPrice(){
     let pPriceRef = document.querySelector(".priceInfo");
     let pricelable = " "; 
@@ -443,8 +516,9 @@ function countPrice(){
 
 // #region för att kolla om knappen för att visa order ska gå att klicka på
 
+//Funktionen kollar om det ska gå att klicka på knappen längst ner i vyn.
+//Utgårn från vektorn med produkterna i 
 function buttonOrder(){
-    console.log(productsCurrentOrder.length);
     let btnRef = document.querySelector("#buttonOrderModal");
     if(productsCurrentOrder.length > 0){
         btnRef.removeAttribute("disabled");
@@ -642,40 +716,54 @@ function updateDatum() {
 
 // #region visa alla kvitton
 
+//Adderar lyssnare till knappen för att visa alla kvitton
 let kvittoKnappRef = document.querySelector("#kvittoKnapp");
-
 kvittoKnappRef.addEventListener("click", () => {
+
+    //Nollställer innehållet
     let allaKvittonBody = document.querySelector(".modal-body-allaKvitton");
     allaKvittonBody.innerHTML = "";
 
+    //Skriver ut alla kvitton som finns sparade i vektorn 
     kvitton.forEach(kvitto => {
-
+        //Divn för "kortet"
         let divRef = document.createElement("div");
         divRef.classList.add("border", "p-2", "m-1", "rounded-2", "d-flex", "justify-content-between");
+        
+        //Innre div som placerar innehåll på vänstra sidan 
         let innerDiv = document.createElement("div");
+
+        //Innre div som pålacerar innehåll på högra sidan 
         let innerDiv2 = document.createElement("div");
         innerDiv2.classList.add("d-flex", "align-items-end");
+
+        //Kvittons innehåll 
         let h5Ref = document.createElement("h5");
         h5Ref.textContent = "Kvittonummer: " + kvitto.kvittoNummer;
         let pRef = document.createElement("p");
         pRef.textContent = kvitto.orderNumber;
-
         innerDiv.appendChild(h5Ref);
         innerDiv.appendChild(pRef);
 
+        //Knappen på hölgra sidan som visar fullständiga kvittot 
         let btnRef = document.createElement("button");
         btnRef.classList.add("btn", "btn-success");
         btnRef.innerText = "Visa kvitto";
+        btnRef.setAttribute("data-bs-toggle", "modal");
+        btnRef.setAttribute("data-bs-target", "#kvittoModal");
+        btnRef.setAttribute("data-order", kvitto.kvittoNummer); 
         btnRef.addEventListener("click", () =>{
+
+            //Bygger upp kvittot utifrån den info som finns i dess objekt
             createkvitto(kvitto);
-        }) 
+        })
+         
+        //Lägger till de sissta elementen 
         innerDiv2.appendChild(btnRef);
         divRef.appendChild(innerDiv);
         divRef.appendChild(innerDiv2);
 
-        divRef.setAttribute("data-bs-toggle", "modal");
-        divRef.setAttribute("data-bs-target", "#kvittoModal");
-        divRef.setAttribute("data-order", kvitto.kvittoNummer);
+        
         allaKvittonBody.appendChild(divRef);
         
     });
@@ -686,16 +774,23 @@ kvittoKnappRef.addEventListener("click", () => {
 
 //#region För att skapa kvitton
 function createkvitto(Kvitto){
+
+    //Skapar strukturen för kvitot 
     let modalBodyKvittonRef = document.querySelector(".modal-body-kvitto");
 
     let divRef = document.createElement("div");
     divRef.classList.add("d-flex", "align-items-center", "flex-column");
     let h1Ref = document.createElement("h1");
+
+    //Kvittonummer
     h1Ref.textContent = Kvitto.kvittoNummer;
     let h2Ref = document.createElement("h2");
+
+    //Beställnignsnummer
     h2Ref.textContent = Kvitto.orderNumber;
     let h4Ref = document.createElement("h4");
 
+    //Kollar minuterna för klockan så det ser korekt ut 
     if(Kvitto.min < 10){
         h4Ref.textContent = Kvitto.hours + ":0" + Kvitto.min; 
     }
@@ -703,18 +798,22 @@ function createkvitto(Kvitto){
         h4Ref.textContent = Kvitto.hours + ":" + Kvitto.min; 
     }
 
+    //Skriver ut datumet
     let h5Ref = document.createElement("h5");
     h5Ref.textContent = Kvitto.day + "/" + Kvitto.month + "-" + Kvitto.year;
 
+    //Adderar elementen 
     divRef.appendChild(h1Ref);
     divRef.appendChild(h2Ref);
     divRef.appendChild(h4Ref);
     divRef.appendChild(h5Ref);
-
     modalBodyKvittonRef.appendChild(divRef);
+
+    //Div för produkterna 
     let productDiv = document.createElement("div");
 
 
+    //Skriver ut produkterna i kvittot
     for(let i = 0; i < Kvitto.products.length; i++){
         let productInnerDiv = document.createElement("div");
         productInnerDiv.classList.add("d-flex", "justify-content-between");
@@ -732,7 +831,7 @@ function createkvitto(Kvitto){
 
     }
     
-
+    //Skriver ut den totalsumman för beställningen 
     let totalpriceDiv = document.createElement("div");
     totalpriceDiv.classList.add("d-flex", "justify-content-between");
     let pRef2 = document.createElement("p");
@@ -745,6 +844,7 @@ function createkvitto(Kvitto){
     totalpriceDiv.appendChild(pRef3);
     modalBodyKvittonRef.appendChild(totalpriceDiv);
 
+    //kollar om knappen för att lägga en beställning ska gå att klicka på eller inte
     buttonOrder();
 }
 

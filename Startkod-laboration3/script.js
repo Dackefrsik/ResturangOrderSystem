@@ -1,3 +1,10 @@
+/*
+Deltagare:
+Daniel Frisk - 000824
+Johan Hertz - 970422 
+Hannah Uhlán - 950901
+*/
+
 "use strict";
 
 // #region timer för klockan i menyn 
@@ -24,11 +31,12 @@ let kvitton = [];
 // #region Modal klassen för genomförd produkt
 
 class Order {
-    constructor(orderNumber, table, products, price){
+    constructor(orderNumber, table, products, price, otherInformation){
         this.orderNumber = orderNumber,
         this.table = table,
         this.products = products,
-        this.price = price
+        this.price = price,
+        this.otherInformation = otherInformation
 
     }
 
@@ -142,15 +150,15 @@ placeOrderRef.addEventListener("click", () => {
     let modalBodyRefOrders = document.querySelector(".modal-body-nuvarandeBeställning");
     let h3Ref = document.querySelector("#orderNumber");
     let select = document.querySelector("#selectTable");
+    let otherInformation = document.querySelector("#otherInformation")
     
     let modalBodyRef = document.querySelector(".modal-body-laggdaBeställning");
     modalBodyRefOrders.innerHTML = "";
     modalBodyRef.innerHTML = "";
     
-    let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, countPrice());
+    let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, countPrice(), otherInformation.value);
     
     orders.push(newOrder);
-    
     if(orders.length > 0){
         console.log("order");
         orders.forEach(order => {
@@ -174,7 +182,14 @@ placeOrderRef.addEventListener("click", () => {
                 pRef.innerHTML = product;
                 innerDivRef.appendChild(pRef);
             })
-            
+
+            let otherHeader = document.createElement("H6");
+            otherHeader.innerHTML = "Övrigt:";
+            innerDivRef.appendChild(otherHeader);
+            let otherText = document.createElement("p");
+            otherText.innerText = order.otherInformation;
+            innerDivRef.appendChild(otherText);
+
             let btnRef = document.createElement("button");
             btnRef.classList.add("btn", "btn-danger", "h-25", "d-flex", "align-items-end");
             btnRef.style.margin = "0.25rem";
@@ -211,7 +226,6 @@ placeOrderRef.addEventListener("click", () => {
 
             innerDivRef.appendChild(divPrice);
             modalBodyRef.appendChild(divRef);
-            //modalBodyRef.appendChild(divPrice);
 
         });
     }
@@ -225,12 +239,15 @@ placeOrderRef.addEventListener("click", () => {
     createkvitto(newKvitto);
     productsCurrentOrder = [];
     priceCurrentOrder = [];
+
+    buttonOrder();
+    countPrice();
     
 });
 
 // #endregion
 
-// #region
+// #region Kvitto
 
 let closeReceiptRef = document.querySelector("#closeReceipt");
 closeReceiptRef.addEventListener("click", () => {
@@ -316,6 +333,7 @@ function showOrder(modalBodyRef){
         textArea.setAttribute("cols", "10");
         textArea.style.resize = "none";
         textArea.setAttribute("placeholder", "Övrig information");
+        textArea.setAttribute("id", "otherInformation");
         
         let diveTotalSumma = document.createElement("div");
         diveTotalSumma.classList.add("d-flex", "justify-content-between", "flex-wrap", "mt-2");

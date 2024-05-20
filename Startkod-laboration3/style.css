@@ -1,3 +1,9 @@
+/*
+Deltagare:
+Daniel Frisk - 000824
+Johan Hertz - 970422 
+Hannah Uhlán - 950901
+*/
 
 body{
     margin: 0px;
@@ -20,16 +26,6 @@ td{
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
 }
-
-
-/*Hannah*/
- 
-/*Föräldern till LoggaImg och Navbar*/
-
- 
-
-/*Menyn*/
-/*TODO: Lägg till meny listan. */
 
 .loggaImg {
   margin: auto;
@@ -75,10 +71,3 @@ color: #6c757d;
 background-color: #ffc107;
 border-color: #ffc107;
 }
-  
-  
-
-  
-  
-  
-

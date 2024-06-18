@@ -190,7 +190,7 @@ placeOrderRef.addEventListener("click", () => {
     //Skapar ett objekt av nuvarande order
     let newOrder = new Order(h3Ref.innerHTML, select.value, productsCurrentOrder, pizzaInfo , countPrice(), otherInformation.value);
     orders.push(newOrder);
-    
+
     //Går igenom alla beställnignar och skriver ut dem
     if(orders.length > 0){
         console.log("order");
@@ -258,8 +258,8 @@ placeOrderRef.addEventListener("click", () => {
                 let otherText = document.createElement("p");
                 otherText.innerText = order.otherInformation;
                 otherText.classList.add("border", "rounded-2", "p-2");
+                innerDivRef.appendChild(otherText);
             }
-            innerDivRef.appendChild(otherText);
 
             //Knappen som gör att man kan ta bort beställningen
             let btnRef = document.createElement("button");
